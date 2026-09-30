@@ -8,11 +8,11 @@ window.TEACHING_MATERIALS = [
     path: 'materials/math/word-chunks.html', action: '教材を開く', external: false
   },
   {
-    id: 'math-integer-equations', subject: 'math', subjectLabel: '数学', grade: '中1〜中2', format: 'PDF',
+    id: 'math-integer-equations', subject: 'math', subjectLabel: '数学', grade: '中1〜中2', format: 'HTML',
     title: '整数と方程式の問題集',
-    description: '整数に関する文章題を、方程式を使って考える練習用プリント。',
+    description: '整数に関する文章題を、方程式を使って考える練習用HTML教材。',
     tags: ['整数', '文章題', '一次方程式', '連立方程式', '練習問題'],
-    path: 'materials/math/integer-equations.pdf', action: 'PDFを開く', external: false
+    path: 'materials/math/integer-equations.html', action: '教材を開く', external: false
   },
   {
     id: 'english-eiken4', subject: 'english', subjectLabel: '英語', grade: '英検4級', format: '外部リポジトリ',
