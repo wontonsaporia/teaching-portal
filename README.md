@@ -15,7 +15,7 @@ GitHub上のファイル閲覧画面はポータルの実行画面ではあり�
 - `assets/materials.js`：教材の登録一覧
 - `assets/portal.js`：検索・絞り込み
 - `assets/style.css`：ポータルの見た目
-- `materials/math/`：数学のHTML教材・PDF
+- `materials/math/`：数学のHTML教材（元PDFも保存）
 - `materials/english/`：今後追加する英語教材
 - `materials/art/`：今後追加する美術教材
 
@@ -33,7 +33,7 @@ GitHub上のファイル閲覧画面はポータルの実行画面ではあり�
 ## 初期収録
 
 - 数学文章題を読む：`math_word_chunks_intro_v4.html`を内容を変更せず`materials/math/word-chunks.html`として収録。
-- 整数と方程式の問題集：`integer_equations_handout.pdf`を`materials/math/integer-equations.pdf`として収録。
+- 整数と方程式の問題集：`materials/math/integer-equations.html`。元PDFの全32問をHTML化し、単元リンク・記入欄・印刷ボタンを追加。元PDFは`materials/math/integer-equations.pdf`に保存。
 - 英検4級 語彙教材：既存の`wontonsaporia/eiken4-vocabulary01`へのリンク。教材本体の移動は今後行います。
 
 ## 今後
