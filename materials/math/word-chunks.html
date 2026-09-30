@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>数学文章題を読む 01｜連続する整数</title>
+<style>
+:root{--bg:#f5f5f2;--paper:#fff;--ink:#111;--muted:#666;--line:#d9d9d4;--red:#e53935;--blue:#2878d0;--green:#2f8f5b;--orange:#d97921;--purple:#7c4dbe}
+*{box-sizing:border-box} html,body{margin:0;background:#1b1b1b;color:var(--ink);font-family:"Noto Sans JP","Yu Gothic","Hiragino Kaku Gothic ProN",sans-serif} body{overflow:hidden}
+.deck{height:100vh;width:100vw;position:relative}.slide{display:none;width:100vw;height:100vh;background:var(--bg);padding:5.5vh 6.5vw 4vh;position:absolute;inset:0}.slide.active{display:block}
+.kicker{font-size:clamp(14px,1.25vw,22px);font-weight:700;letter-spacing:.14em;color:var(--muted);text-transform:uppercase;margin-bottom:1.8vh}
+h1{margin:0 0 2.2vh;font-size:clamp(34px,4vw,64px);line-height:1.18;letter-spacing:-.03em}h2{margin:0 0 1.6vh;font-size:clamp(27px,3vw,48px);line-height:1.25;letter-spacing:-.02em}
+.problem,.text-block,.formula-block{background:var(--paper);border:1px solid var(--line);border-radius:24px;box-shadow:0 8px 30px rgba(0,0,0,.05)}
+.problem{padding:4vh 4vw;margin-top:4vh}.problem p{font-size:clamp(26px,2.8vw,44px);line-height:1.65;margin:0}.instruction{margin-top:3vh;font-size:clamp(18px,1.6vw,28px);color:var(--muted)}
+.def{border-left:8px solid var(--red);padding:1.5vh 2vw;background:#fff;margin:1.4vh 0 2.5vh;border-radius:0 18px 18px 0}.def strong{font-size:clamp(24px,2.4vw,38px)}.def span{display:block;font-size:clamp(19px,1.7vw,29px);margin-top:.7vh;line-height:1.55}
+.text-block,.formula-block{padding:3.2vh 3vw}.chunkline{font-size:clamp(24px,2.45vw,39px);line-height:1.85;margin:.15em 0}.c1{color:var(--blue);font-weight:800}.c2{color:var(--green);font-weight:800}.c3{color:var(--orange);font-weight:800}.c4{color:var(--purple);font-weight:800}
+.eq{font-family:"Times New Roman",serif;font-size:clamp(28px,3vw,47px);line-height:1.65;margin:.28em 0}.mini-title{font-size:clamp(16px,1.3vw,22px);font-weight:800;letter-spacing:.08em;color:var(--muted);margin-bottom:1.2vh}.note{margin-top:2vh;padding:1.4vh 1.6vw;border-radius:16px;background:#fff7ef;border:1px solid #f0d2b8;font-size:clamp(17px,1.45vw,24px);line-height:1.55}
+.legend{display:flex;gap:1.2vw;flex-wrap:wrap;margin-top:2.2vh}.tag{background:#fff;border:1px solid var(--line);border-radius:999px;padding:.5em .9em;font-size:clamp(14px,1.2vw,20px);font-weight:700}
+.footer{position:absolute;bottom:2.2vh;left:6.5vw;right:6.5vw;display:flex;justify-content:space-between;align-items:center;color:#777;font-size:14px}.nav{position:fixed;right:18px;bottom:16px;z-index:50;display:flex;gap:8px}button{border:0;background:#111;color:#fff;border-radius:999px;width:44px;height:44px;font-size:20px;cursor:pointer}.progress{position:fixed;left:0;bottom:0;height:4px;background:var(--red);z-index:60;transition:width .2s ease}
+@media(max-width:800px){.slide{overflow:auto}}
+@media print{body{background:#fff;overflow:visible}.deck{height:auto}.slide{display:block;position:relative;width:13.333in;height:7.5in;page-break-after:always}.nav,.progress{display:none}}
+</style>
+</head>
+<body>
+<div class="deck">
+
+<section class="slide active">
+  <div class="kicker">Problem 01</div><h1>連続する3つの整数</h1>
+  <div class="problem"><p>連続する3つの整数があります。<br>3つの整数の和は72です。<br>この3つの整数を求めなさい。</p></div>
+  <div class="instruction">まずは、問題文の中にある数学のことばを探してみよう。</div>
+  <div class="footer"><span>数学文章題を読む</span><span>01 / 08</span></div>
+</section>
+
+<section class="slide">
+  <div class="kicker">Reading 01</div><h2>問題文の中の数学語彙を見つける</h2>
+  <div class="text-block" style="margin-top:4vh;padding:4vh 4vw;">
+    <div class="chunkline"><span class="c1">連続する</span><span class="c2">3つの整数</span>があります。</div>
+    <div class="chunkline"><span class="c3">3つの整数の和</span>は<span class="c4">72</span>です。</div>
+    <div class="chunkline">この3つの整数を求めなさい。</div>
+  </div>
+  <div class="legend">
+    <span class="tag c1">連続する</span>
+    <span class="tag c2">3つの整数</span>
+    <span class="tag c3">3つの整数の和</span>
+    <span class="tag c4">72</span>
+  </div>
+  <div class="note">このページでは、まだ意味の説明も式への変換もしない。まず「どこまでを一つの数学語彙として読むか」を確認する。</div>
+  <div class="footer"><span>数学文章題を読む</span><span>02 / 08</span></div>
+</section>
+
+<section class="slide">
+  <div class="kicker">Chunk 01</div><h2>数学語彙の意味を知り、式に置きかえる</h2>
+  <div class="formula-block">
+    <div class="mini-title">短い文章 → 式</div>
+    <div class="eq"><span class="c2">ある整数</span> → n</div>
+    <div class="eq"><span class="c1">次の整数</span> → n + 1</div>
+    <div class="eq"><span class="c1">さらに次の整数</span> → n + 2</div>
+    <div class="eq"><span class="c3">3つの整数の和</span> → n + (n+1) + (n+2)</div>
+    <div class="eq"><span class="c4">和は72</span> → n + (n+1) + (n+2) = 72</div>
+  </div>
+  <div class="note">整数の列では、となり同士の差が1。だから「連続する3つの整数」は1ずつ増える。</div>
+  <div class="footer"><span>数学文章題を読む</span><span>03 / 08</span></div>
+</section>
+
+<section class="slide">
+  <div class="kicker">Practice 01</div><h1>同じ構造を、別の数で読む</h1>
+  <div class="problem"><p>連続する3つの整数があります。<br>3つの整数の和は87です。<br>この3つの整数を求めなさい。</p></div>
+  <div class="instruction">「連続する」「3つの整数」「3つの整数の和」を、自分で式へ置きかえてみよう。</div>
+  <div class="footer"><span>数学文章題を読む</span><span>04 / 08</span></div>
+</section>
+
+<section class="slide">
+  <div class="kicker">Problem 02</div><h1>連続する3つの偶数</h1>
+  <div class="problem"><p>連続する3つの偶数があります。<br>3つの偶数の和は42です。<br>この3つの偶数を求めなさい。</p></div>
+  <div class="instruction">「連続する」の意味は同じ。でも、今見ている数の列が変わりました。</div>
+  <div class="footer"><span>数学文章題を読む</span><span>05 / 08</span></div>
+</section>
+
+<section class="slide">
+  <div class="kicker">Chunk 02</div><h2>「連続する」は、どの列を見ているかで変わる</h2>
+  <div class="def"><strong>連続する</strong><span>ある規則にしたがって順番に並べた数の列の中で、間に別の数を挟まず隣り合っていること。</span></div>
+  <div class="def"><strong>偶数</strong><span>2で割り切れる整数。… −4, −2, 0, 2, 4, 6, 8, … のように並ぶ。</span></div>
+  <div class="text-block">
+    <div class="mini-title">色のついた部分を、ひとまとまりとして読む</div>
+    <div class="chunkline"><span class="c1">連続する</span><span class="c2">3つの偶数</span>があります。</div>
+    <div class="chunkline"><span class="c3">3つの偶数の和</span>は<span class="c4">42</span>です。</div>
+    <div class="chunkline">この3つの偶数を求めなさい。</div>
+  </div>
+  <div class="note">整数の列では1ずつ、偶数の列では2ずつ進む。「連続する＝差が1」ではなく、「その列の中でとなり同士」。</div>
+  <div class="footer"><span>数学文章題を読む</span><span>06 / 08</span></div>
+</section>
+
+<section class="slide">
+  <div class="kicker">Translate 02</div><h2>偶数の列を、式に置きかえる</h2>
+  <div class="formula-block">
+    <div class="mini-title">短い文章 → 式</div>
+    <div class="eq"><span class="c2">ある偶数</span> → 2n</div>
+    <div class="eq"><span class="c1">次の偶数</span> → 2n + 2</div>
+    <div class="eq"><span class="c1">さらに次の偶数</span> → 2n + 4</div>
+    <div class="eq"><span class="c3">3つの偶数の和</span> → 2n + (2n+2) + (2n+4)</div>
+    <div class="eq"><span class="c4">和は42</span> → 2n + (2n+2) + (2n+4) = 42</div>
+  </div>
+  <div class="footer"><span>数学文章題を読む</span><span>07 / 08</span></div>
+</section>
+
+<section class="slide">
+  <div class="kicker">Practice 02</div><h1>偶数の列で、もう一度</h1>
+  <div class="problem"><p>連続する3つの偶数があります。<br>3つの偶数の和は54です。<br>この3つの偶数を求めなさい。</p></div>
+  <div class="instruction">「連続する」「3つの偶数」「3つの偶数の和」を、自分で式へ置きかえてみよう。</div>
+  <div class="footer"><span>数学文章題を読む</span><span>08 / 08</span></div>
+</section>
+
+</div>
+<div class="nav"><button id="prev" aria-label="前へ">←</button><button id="next" aria-label="次へ">→</button></div><div class="progress" id="progress"></div>
+<script>
+const slides=[...document.querySelectorAll('.slide')];let i=0;function show(n){i=Math.max(0,Math.min(slides.length-1,n));slides.forEach((s,j)=>s.classList.toggle('active',j===i));document.getElementById('progress').style.width=((i+1)/slides.length*100)+'%'}document.getElementById('prev').onclick=()=>show(i-1);document.getElementById('next').onclick=()=>show(i+1);window.addEventListener('keydown',e=>{if(['ArrowRight','PageDown',' '].includes(e.key)){e.preventDefault();show(i+1)}if(['ArrowLeft','PageUp'].includes(e.key)){e.preventDefault();show(i-1)}if(e.key==='Home')show(0);if(e.key==='End')show(slides.length-1)});show(0);
+</script>
+</body></html>

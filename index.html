@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>学習指導ポータル</title>
+  <link rel="stylesheet" href="assets/style.css">
+  <script src="assets/materials.js" defer></script>
+  <script src="assets/portal.js" defer></script>
+</head>
+<body>
+  <header><div class="wrap"><p class="eyebrow">TEACHING PORTAL</p><h1>学びにつながる、教材を。</h1><p class="intro">授業で使う解説、練習問題、学習ツールをひとつの場所に。</p></div></header>
+  <main class="wrap">
+    <section aria-labelledby="catalog-title">
+      <div class="heading"><h2 id="catalog-title">教材一覧</h2><p id="count" role="status" aria-live="polite"></p></div>
+      <div class="filters">
+        <div><label for="search">教材を検索</label><input id="search" type="search" placeholder="教材名・単元・キーワード" autocomplete="off"></div>
+        <div><label for="subject">教科</label><select id="subject"><option value="all">すべての教科</option value="math">数学</option><option value="english">英語</option><option value="art">美術</option></select></div>
+      </div>
+      <div id="materials" class="grid"></div>
+      <p id="empty" class="empty" hidden>該当する教材はありません。検索語や教科を変えてみてください。</p>
+      <noscript><p>教材の検索にはJavaScriptを有効にしてください。</p><ul><li><a href="materials/math/word-chunks.html">数学文章題を読む</a></li><li><a href="materials/math/integer-equations.pdf">整数と方程式の問題集（PDF）</a></li><li><a href="https://github.com/wontonsaporia/eiken4-vocabulary01">英検4級 語彙教材（リポジトリ）</a></li></ul></noscript>
+    </section>
+  </main>
+  <footer class="wrap">学習指導ポータル · 教材を少しずつ追加していきます。</footer>
+</body>
+</html>
