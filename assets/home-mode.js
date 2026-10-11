@@ -103,12 +103,21 @@ function render(){
   clear.hidden=true;
  }
  const records=validHistory();
- $('home-attempts').textContent=local?records.length+'件':'—';
- $('home-covered').textContent=local?new Set(records.map(row=>row.questionId)).size+'問':'—';
- const recent=records.slice(-50);
- $('home-recent').textContent=recent.length?Math.round(recent.filter(r=>r.correct).length/recent.length*100)+'%':'—';
- $('home-stats-note').textContent=!local?'暗号化プロフィールの解錠後に表示します。':
- records.length?'直近の参考正答率は、保存済みの最大50回答から集計しています。':'回答履歴ができると、ここに結果が表示されます。';
+ const trainingIds=new Set(records.map(r=>r.questionId));
+ for(const base of ['care-2018-drill-v2','care-2018-exam-v2',...units.map(u=>'care-2018-drill-v2--'+u.id)]){
+  const s=readJSON(base,null);
+  if(s&&s.answers&&typeof s.answers==='object')for(const n of Object.keys(s.answers)){
+   const q=Number(n);if(Number.isInteger(q)&&q>=1&&q<=50)trainingIds.add('suction-2018-q'+String(q).padStart(2,'0'));
+  }
+ }
+ const national=readJSON('care-national-medical-2024-2026-v1',null);
+ const nationalIds=national?.answers&&typeof national.answers==='object'?Object.entries(national.answers)
+  .filter(([id,v])=>/^(36|37)-(59|60|61|62|63)$|^38-(101|102|103|104|105)$/.test(id)&&Number.isInteger(v)&&v>=1&&v<=5).map(([id])=>id):[];
+ const active=Number(trainingIds.size>0)+Number(nationalIds.length>0);
+ $('home-attempts').textContent=local?trainingIds.size+nationalIds.length+'問':'—';
+ $('home-covered').textContent=local?active+' / 2':'—';
+ $('home-recent').textContent=local?'65問':'—';
+ $('home-stats-note').textContent=local?'回答数はコースごとに集計。正答率は各コース内で確認できます。':'プロフィールの解錠後に表示します。';
  const choices=resumeOptions(),selected=choices[0];
  const anchor=$('resume-action');
  if(selected){
