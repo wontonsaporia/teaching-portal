@@ -7,7 +7,7 @@ const root=resolve(import.meta.dirname,'..');
 const read=(p)=>readFileSync(resolve(root,p),'utf8');
 const jsFiles=[
  'assets/app-shell.js','assets/guest-session.js','assets/home-mode.js','assets/materials.js',
- 'assets/portal.js','assets/profile-backup.js','assets/profiles.js','assets/secure-vault.js',
+ 'assets/portal.js','assets/progress.js','assets/profile-backup.js','assets/profiles.js','assets/secure-vault.js',
  'assets/start.js','assets/study-mode.js','materials/care/national-medical-bank.js',
  'materials/care/national-medical-quiz.js','materials/care/practice.js'
 ];
@@ -18,7 +18,13 @@ console.log('PASS: all v2 JavaScript parses');
 
 const scope={window:{}};
 runInNewContext(read('assets/materials.js'),scope);
-const visible=scope.window.TEACHING_MATERIALS.filter(m=>!m.hidden);
+const visible=scope.window.TEACHING_MATERIALS.filter(m=>!m.hidden&&m.kind!=='analytics');
+const courses=scope.window.TEACHING_COURSES.filter(c=>!c.hidden);
+assert.equal(new Set(courses.map(c=>c.id)).size,courses.length);
+assert.ok(courses.some(c=>c.id==='care-national'));
+assert.ok(courses.some(c=>c.id==='care-suction-training'));
+assert.ok(visible.every(m=>courses.some(c=>c.id===m.courseId&&c.subject===m.subject)));
+assert.ok(!visible.some(m=>m.id==='care-suction-dashboard'));
 assert.equal(new Set(visible.map(m=>m.id)).size,visible.length);
 for(const m of visible){assert.ok(m.title&&m.subject&&m.path);if(!m.external)assert.ok(existsSync(resolve(root,m.path)),m.path)}
 assert.ok(visible.some(m=>m.id==='care-national-medical-36-38'));
@@ -56,7 +62,7 @@ assert.ok(read('assets/home-mode.js').includes("base:'care-2018-drill-v2'"));
 assert.ok(!read('assets/home-mode.js').includes("base:'care-2018-exam-v2'"));
 console.log('PASS: isolated guest/profile storage, backup and resume protection');
 
-for(const page of ['app.html','index.html','home.html','library.html','materials/care/national-medical-quiz.html']){
+for(const page of ['app.html','index.html','home.html','library.html','progress.html','materials/care/national-medical-quiz.html']){
  const html=read(page);
  for(const match of html.matchAll(/<script\s+src="([^"]+)"[^>]*><\/script>/g)){
   const target=resolve(root,page.includes('/')?page.slice(0,page.lastIndexOf('/')):'',match[1].split('?')[0]);
@@ -68,4 +74,12 @@ for(const id of ['exam-status','question-stem','choice-buttons','pdf-panel','sou
  assert.ok(page.includes('id="'+id+'"'),'Missing UI target '+id);
 }
 console.log('PASS: entry page scripts and exam DOM targets');
+const progress=read('progress.html'),progressJs=read('assets/progress.js');
+for(const id of ['progress-overview','progress-courses','progress-status'])assert.ok(progress.includes('id="'+id+'"'));
+assert.ok(progressJs.includes('care-quiz-history-v1'));
+assert.ok(progressJs.includes('care-national-medical-2024-2026-v1'));
+assert.ok(progressJs.includes('trainingIds.size+valid.length'));
+assert.ok(read('home.html').includes('href="progress.html"'));
+assert.ok(read('app.html').includes('data-page="progress.html"'));
+console.log('PASS: course-based navigation and separate progress aggregation');
 console.log('Static smoke checks complete. Browser E2E is required before merging.');
