@@ -40,12 +40,26 @@ function download(obj){
  a.href=href;a.download='teaching-portal-encrypted-'+new Date().toISOString().slice(0,10)+'.json';document.body.append(a);a.click();a.remove();
  setTimeout(()=>URL.revokeObjectURL(href),3000);
 }
+function requestPassword(title,confirmation=false){
+ return new Promise(resolve=>{
+  const overlay=document.createElement('div');overlay.className='vault-lock';
+  const panel=document.createElement('section');panel.className='vault-panel';
+  const h=document.createElement('h2');h.textContent=title;
+  const form=document.createElement('form');
+  const a=document.createElement('input');a.type='password';a.required=true;a.minLength=10;a.autocomplete='new-password';a.placeholder='10文字以上のパスワード';
+  const b=document.createElement('input');b.type='password';b.required=confirmation;b.minLength=10;b.autocomplete='new-password';b.placeholder='パスワードを再入力';b.hidden=!confirmation;
+  const error=document.createElement('p');error.className='vault-warning';
+  const ok=document.createElement('button');ok.type='submit';ok.textContent=confirmation?'暗号化する':'復号する';
+  const cancel=document.createElement('button');cancel.type='button';cancel.textContent='キャンセル';cancel.className='vault-switch';
+  const finish=v=>{a.value='';b.value='';overlay.remove();resolve(v)};
+  cancel.onclick=()=>finish(null);
+  form.onsubmit=e=>{e.preventDefault();if(a.value.length<10){error.textContent='10文字以上入力してください。';return}if(confirmation&&a.value!==b.value){error.textContent='入力が一致しません。';return}finish(a.value)};
+  form.append(a,b,error,ok,cancel);panel.append(h,form);overlay.append(panel);document.body.append(overlay);a.focus();
+ });
+}
 async function save(){
- let pass=prompt('バックアップファイル用のパスワードを設定してください（10文字以上）。プロフィール用と別のものも設定できます。');
+ let pass=await requestPassword('バックアップ用のパスワードを設定',true);
  if(pass===null)return;
- if(pass.length<10){alert('10文字以上のパスワードを使用してください。');return}
- const verify=prompt('バックアップ用パスワードをもう一度入力してください。');
- if(pass!==verify){alert('パスワードが一致しません。');return}
  try{await vault.flush();const file=await vault.encryptedBackup(pack(),pass);download(file);alert('暗号化バックアップの保存を開始しました。パスワードを忘れると復元できません。')}
  catch(e){alert('バックアップの作成に失敗しました。'+e.message)}
  finally{pass=''}
@@ -55,7 +69,7 @@ async function restore(file){
  let envelope;try{envelope=JSON.parse(await file.text())}catch(e){alert('JSONとして読み取れません。');return}
  let data,fromLegacy=false,pass='';
  if(envelope?.schema==='teaching-portal-encrypted-backup'&&envelope.version===2){
-  pass=prompt('バックアップの復号パスワードを入力してください。');
+  pass=await requestPassword('バックアップのパスワードを入力');
   if(pass===null)return;
   try{data=await vault.decryptBackup(envelope,pass)}catch(e){alert('復号できません。パスワードかファイルを確認してください。');return}
  }else if(envelope?.schema==='teaching-portal-learning-backup'&&envelope.version===1){
