@@ -86,3 +86,6 @@
 .home-hero-footer{margin-top:16px;padding-top:12px}
 @media(max-width:960px){.home-hero-dashboard{grid-template-columns:minmax(185px,.8fr) minmax(225px,1fr)}.home-hero-dashboard .home-stat-panel{grid-column:1 / -1}.home-hero-dashboard .home-stats{grid-template-columns:repeat(3,minmax(0,1fr))}.home-hero-dashboard .home-stats>div:last-child{grid-column:auto;border-top:0;padding-top:0}}
 @media(max-width:620px){.home-hero-dashboard{grid-template-columns:1fr;gap:11px}.home-hero-message{padding:0 3px 8px}.home-hero-message h1{font-size:38px;margin:5px 0 7px}.home-hero-library-link{padding-top:9px}.home-hero-dashboard .home-stat-panel{grid-column:auto}.home-hero-dashboard .home-resume,.home-hero-dashboard .home-stat-panel{padding:17px}.home-hero-dashboard .home-stats strong{font-size:22px}}
+
+/* Catalog groups are courses, not individual training modes. */
+.catalog-filters{grid-template-columns:minmax(0,1fr) 180px 240px!important}.catalog-course{margin:28px 0 38px}.catalog-course-head{margin-bottom:16px}.catalog-course-head h3{font-size:21px;margin:4px 0}.catalog-course-description{font-size:13px;color:var(--home-muted);margin:0}.catalog-course .grid{gap:13px}.catalog-course .card{padding:21px}.catalog-course .card h3{font-size:17px}@media(max-width:760px){.catalog-filters{grid-template-columns:1fr!important}.catalog-course{margin:25px 0}}
