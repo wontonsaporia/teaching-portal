@@ -4,7 +4,8 @@ const container = document.getElementById('materials');
 const normalize = value => value.normalize('NFKC').toLocaleLowerCase('ja');
 function renderMaterials() {
   const words = normalize(search.value).trim().split(/\s+/).filter(Boolean);
-  const materials = window.TEACHING_MATERIALS.filter(material => {
+  const activeMaterials = window.TEACHING_MATERIALS.filter(material => !material.hidden);
+  const materials = activeMaterials.filter(material => {
     const text = normalize([material.title, material.description, material.subjectLabel, material.grade, material.format, ...material.tags].join(' '));
     return (subject.value === 'all' || subject.value === material.subject) && words.every(word => text.includes(word));
   });
@@ -24,7 +25,7 @@ function renderMaterials() {
     if (material.external) { link.target = '_blank'; link.rel = 'noopener noreferrer'; link.textContent += '（別タブ）'; }
     card.append(link); container.append(card);
   }
-  document.getElementById('count').textContent = `${materials.length}件 / 全${window.TEACHING_MATERIALS.length}件`;
+  document.getElementById('count').textContent = `${materials.length}件 / 全${activeMaterials.length}件`;
   document.getElementById('empty').hidden = materials.length !== 0;
 }
 search.addEventListener('input', renderMaterials);
