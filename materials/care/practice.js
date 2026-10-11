@@ -2,12 +2,13 @@
 const BANK=window.CARE_BANK;const Q=BANK?BANK.questions:(window.CARE_QUIZ_QUESTIONS||[]), $=id=>document.getElementById(id), test=document.body.dataset.mode==='test', prefix=window.TeachingProfiles.scopedKey('care-2018-'+(test?'exam':'drill')+'-v2',window.TeachingProfiles.activeId());
 const all=Q.map(q=>q.n),byNum=n=>Q.find(q=>q.n===n),randomize=x=>{const a=[...x];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
 let order=[...all],answers={},first={},index=0,completed=false,elapsed=0,start=Date.now(),revealed={};
+let savedFromPrevious=false;
 let choiceMode='original',choiceOrders={};
 const validPermutation=a=>Array.isArray(a)&&a.length===4&&new Set(a).size===4&&a.every(i=>Number.isInteger(i)&&i>=1&&i<=4);
 const freshChoiceOrders=()=>Object.fromEntries(Q.map(q=>[q.n,randomize([1,2,3,4])]));
 const displayOrder=n=>choiceMode==='shuffled'&&validPermutation(choiceOrders[n])?choiceOrders[n]:[1,2,3,4];
 const displayNumber=(n,sourceValue)=>displayOrder(n).indexOf(sourceValue)+1;
-try{let o=JSON.parse(localStorage.getItem(prefix)||'{}');if(Array.isArray(o.order)&&o.order.length&&o.order.every(n=>all.includes(n))&&new Set(o.order).size===o.order.length)order=o.order;if(o.answers&&typeof o.answers==='object')answers=o.answers;if(o.first&&typeof o.first==='object')first=o.first;if(o.choiceMode==='shuffled')choiceMode='shuffled';if(o.choiceOrders&&typeof o.choiceOrders==='object')for(const [n,a] of Object.entries(o.choiceOrders)){if(validPermutation(a))choiceOrders[n]=a;}index=Math.max(0,Math.min(order.length-1,Number(o.index)||0));elapsed=Number(o.elapsed)||0;completed=!!o.completed;}catch(e){}
+try{let o=JSON.parse(localStorage.getItem(prefix)||'{}');if(Array.isArray(o.order)&&o.order.length&&o.order.every(n=>all.includes(n))&&new Set(o.order).size===o.order.length)order=o.order;if(o.answers&&typeof o.answers==='object')answers=o.answers;if(o.first&&typeof o.first==='object')first=o.first;if(o.choiceMode==='shuffled')choiceMode='shuffled';savedFromPrevious=!!o.completed;if(o.choiceOrders&&typeof o.choiceOrders==='object')for(const [n,a] of Object.entries(o.choiceOrders)){if(validPermutation(a))choiceOrders[n]=a;}index=Math.max(0,Math.min(order.length-1,Number(o.index)||0));elapsed=Number(o.elapsed)||0;completed=!!o.completed;}catch(e){}
 const save=()=>{try{localStorage.setItem(prefix,JSON.stringify({order,answers,first,index,elapsed:elapsed+(Date.now()-start)/1000,completed,choiceMode,choiceOrders}));}catch(e){}};
 const point=()=>{elapsed+=(Date.now()-start)/1000;start=Date.now()};
 const current=()=>byNum(order[index]);
@@ -40,7 +41,7 @@ $('progress').style.width=(eligible.filter(answered).length/Math.max(eligible.le
  $('category').textContent=q.topic;$('question').textContent=q.stem;
  $('source-page').textContent='原本 p.'+page(q.n)+' · 原文逐字照合待ち · 参考解答未検証';
  const diagram=$('diagram');diagram.hidden=q.n!==21;
- if(q.n===21)diagram.textContent='原本の人体図が未整備のため、この問題の回答を一時停止しています。模擬テストでは採点対象49問の成績を集計します。原本PDFの5ページと照合して図版を制作する予定です。';
+ if(q.n===21){diagram.textContent='問21の図（原本参照）。画像の読み込みに失敗した場合は原本PDFを参照してください。';if(window.CARE_Q21_IMAGE){const img=document.createElement('img');img.src=window.CARE_Q21_IMAGE;img.alt='頭頸部の矢状断面：空気と飲食物の経路。図中に①から④の番号と指示線がある。';img.loading='lazy';img.style.cssText='display:block;width:100%;max-width:560px;height:auto;margin:auto;';diagram.replaceChildren(img);}}
  const box=$('options');box.replaceChildren();
  displayOrder(q.n).forEach((value,i)=>{const v=q.options[value-1],b=elements('button',null,'choice');b.type='button';b.append(elements('span',String(i+1),'number'),elements('span',v));const selected=answers[q.n]===value;
  if(selected)b.classList.add('selected');if(!scoreEligible(q.n)){b.disabled=true;}else if(!test&&answered(q.n)){b.disabled=true;if(value===q.key)b.classList.add('right');if(selected&&!correct(q.n))b.classList.add('wrong')}
@@ -88,5 +89,5 @@ $('retry-wrong').onclick=()=>{const wrong=order.filter(n=>answered(n)&&!correct(
 $('restart').onclick=()=>{if(!confirm('このページの回答を消去して全50問をやり直しますか？'))return;answers={};first={};order=[...all];index=0;completed=false;elapsed=0;start=Date.now();if(choiceMode==='shuffled')choiceOrders=freshChoiceOrders();save();render()};
 $('back').onclick=()=>{if(test&&completed){$('report').hidden=false;return}render()};
 window.addEventListener('pagehide',save);
-if(test&&completed)report();else render();
+if(test&&completed){const completedBefore=completed;report();}else render();
 })();
