@@ -1,5 +1,7 @@
 // 教材追加時はこの一覧に1件追加します。pathはindex.htmlからの相対パスです。
 window.TEACHING_MATERIALS = [
+  {id:'care-national-medical-36-38',subject:'care',subjectLabel:'医療・介護',grade:'介護福祉士国家試験 2024–2026',format:'公式過去問・解答ノート',title:'国家試験 医療的ケア（第36〜38回・15問）',description:'試験センターの公式問題PDFを参照しながら解答。年度別5問・公式正答との照合・ローカル保存に対応。現行制度との照合は一部継続中。',tags:['介護福祉士','医療的ケア','第36回','第37回','第38回','過去問'],path:'materials/care/national-medical-quiz.html',action:'問題集を開く',external:false},
+
   {
     id: 'care-suction-2018', subject: 'care', subjectLabel: '医療・介護', grade: '喀痰吸引等研修', format: '一問一答ドリル',
     title: '喀痰吸引等研修・50問練習ドリル',
