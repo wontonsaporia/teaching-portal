@@ -16,3 +16,4 @@ jobs:
           node-version: '22'
       - run: node tests/v2-smoke.mjs
       - run: node tests/v2-guardrails.mjs
+      - run: node tests/v2-crypto.mjs
