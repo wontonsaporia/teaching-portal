@@ -1,6 +1,13 @@
 // 教材追加時はこの一覧に1件追加します。pathはindex.htmlからの相対パスです。
 window.TEACHING_MATERIALS = [
   {
+    id: 'care-suction-2018', subject: 'care', subjectLabel: '医療・介護', grade: '喀痰吸引等研修', format: '4択クイズ',
+    title: '喀痰吸引等研修・筆記試験50問',
+    description: '平成30年度後期の筆記試験を練習する50問クイズ。回答途中の保存、採点、復習に対応。正答は非公式の参考解答です。',
+    tags: ['喀痰吸引', '経管栄養', '感染予防', '看護', '介護', '筆記試験'],
+    path: 'materials/care/suction-2018-quiz.html', action: 'クイズを開始', external: false
+  },
+  {
     id: 'math-word-chunks', subject: 'math', subjectLabel: '数学', grade: '中1', format: 'HTML',
     title: '数学文章題を読む',
     description: '連続する整数・偶数の文章を、意味のまとまりごとに読み、式へ置きかえるスライド教材。',
