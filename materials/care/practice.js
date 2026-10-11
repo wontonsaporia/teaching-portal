@@ -47,10 +47,9 @@ function render(){
 }
 function pct(x,y){return y?Math.round(x/y*100):0}
 function report(){
- point();if(test)completed=true;save();
+ point();if(test&&!completed){order.filter(answered).forEach(n=>record(n,answers[n]));}if(test)completed=true;save();
  $('screen').hidden=true;$('report').hidden=false;
  const set=order.map(byNum).filter(q=>scoreEligible(q.n)),done=set.filter(q=>answered(q.n)),right=done.filter(q=>correct(q.n)),wrong=done.filter(q=>!correct(q.n)),pending=set.filter(q=>!answered(q.n));
- if(test&&!completed){done.forEach(q=>record(q.n,answers[q.n]));}
  $('report-title').textContent=test?'テスト分析レポート':'ドリル学習レポート';
  $('score').textContent=right.length+' / '+set.length+' 問';
  $('metrics').replaceChildren();
