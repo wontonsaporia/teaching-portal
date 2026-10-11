@@ -1,27 +1,53 @@
 <!doctype html>
 <html lang="ja">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>学習指導ポータル</title>
-  <link rel="stylesheet" href="assets/style.css">
-  <script src="assets/materials.js" defer></script>
-  <script src="assets/portal.js" defer></script>
-<link rel="manifest" href="manifest.webmanifest"><meta name="theme-color" content="#245d43"><link rel="icon" type="image/svg+xml" href="assets/app-icon.svg"></head>
-<body>
-  <header><div class="wrap"><p class="eyebrow">TEACHING PORTAL</p><h1>学びにつながる、教材を。</h1><p class="intro">授業で使う解説、練習問題、学習ツールをひとつの場所に。</p></div></header>
-  <main class="wrap">
-    <section aria-labelledby="catalog-title">
-      <div class="heading"><h2 id="catalog-title">教材一覧</h2><p id="count" role="status" aria-live="polite"></p></div>
-      <div class="filters">
-        <div><label for="search">教材を検索</label><input id="search" type="search" placeholder="教材名・単元・キーワード" autocomplete="off"></div>
-        <div><label for="subject">教科</label><select id="subject"><option value="all">すべての教科</option><option value="math">数学</option><option value="english">英語</option><option value="art">美術</option><option value="care">医療・介護</option></select></div>
-      </div>
-      <div id="materials" class="grid"></div>
-      <p id="empty" class="empty" hidden>該当する教材はありません。検索語や教科を変えてみてください。</p>
-      <noscript><p>教材の検索にはJavaScriptを有効にしてください。</p><ul><li><a href="materials/math/word-chunks.html">数学文章題を読む</a></li><li><a href="materials/math/integer-equations.html">整数と方程式の問題集</a></li></ul></noscript>
-    </section>
-  </main>
-  <footer class="wrap">学習指導ポータル · 教材を少しずつ追加していきます。</footer>
-<script>if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}))}</script></body>
-</html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta name="theme-color" content="#203d37">
+<title>はじめる | Teaching Portal v2</title>
+<link rel="stylesheet" href="assets/start.css">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="assets/app-icon.svg" type="image/svg+xml">
+<script src="assets/guest-session.js" defer></script>
+<script src="assets/profiles.js" defer></script>
+<script src="assets/start.js" defer></script>
+</head>
+<body data-profile-ui="hidden">
+<div class="app-frame">
+ <header class="masthead">
+  <a href="index.html" class="wordmark" aria-label="Teaching Portal スタート">TP<span class="brand-dot">.</span> <span>TEACHING PORTAL</span></a>
+  <span class="version">V2 / LOCAL-FIRST</span>
+ </header>
+ <main class="start-layout">
+  <section class="introduction" aria-labelledby="intro-title">
+   <div class="kicker"><span class="kicker-line"></span> YOUR LEARNING, YOUR DATA</div>
+   <h1 id="intro-title">学びを、<br><em>自分の手元に。</em></h1>
+   <p>教材を見るだけなら登録は不要です。<br>記録を残すなら、この端末に学習プロフィールを作成できます。</p>
+   <div class="principles"><span>メールアドレス不要</span><span>外部ログイン不要</span><span>端末内に保存</span></div>
+  </section>
+  <section class="entry" aria-label="学習の始め方">
+   <div class="entry-heading"><span>01 — CHOOSE A MODE</span><h2>学習方法を選択</h2></div>
+   <section class="mode-card primary" aria-labelledby="guest-title">
+    <div class="card-top"><span class="card-symbol" aria-hidden="true">↗</span><span class="card-index">A / GUEST</span></div>
+    <h3 id="guest-title">ゲストで始める</h3>
+    <p>パスワードなしですぐに教材へ。学習記録はこのタブで一時的に保持します。</p>
+    <button type="button" id="start-guest" class="action primary-action">学習を始める <span aria-hidden="true">→</span></button>
+   </section>
+   <section class="mode-card secondary" aria-labelledby="profile-title">
+    <div class="card-top"><span class="card-symbol" aria-hidden="true">⌑</span><span class="card-index">B / LOCAL PROFILE</span></div>
+    <h3 id="profile-title">プロフィールを利用する</h3>
+    <p>学習履歴を暗号化して保存。プロフィールはこの端末にだけ存在します。</p>
+    <label for="profile-select">学習プロフィール</label>
+    <select id="profile-select"></select>
+    <button type="button" id="open-profile" class="action outline-action">選択したプロフィールで進む <span aria-hidden="true">→</span></button>
+    <button type="button" id="create-profile" class="new-profile">＋ 新しいプロフィールを作成</button>
+    <p class="tiny">学習履歴の解錠にはパスワードが必要です。旧デフォルトの記録はゲストへ移されません。</p>
+   </section>
+   <p id="entry-status" class="status" role="status" aria-live="polite"></p>
+  </section>
+ </main>
+ <footer class="footer"><span>TEACHING PORTAL / PROTOTYPE</span><a href="home.html">教材一覧を直接見る →</a></footer>
+</div>
+<noscript><p>JavaScriptを有効にするとゲストとプロフィールを選べます。<a href="home.html">教材一覧を見る</a></p></noscript>
+</body></html>
