@@ -8,7 +8,7 @@
 <section class="surface maincard" style="margin-top:18px"><h2 class="section-title">学習の続き</h2><div class="links"><a href="suction-2018-quiz.html">練習ドリル</a><a href="suction-2018-test.html">模擬テスト</a><a href="regulations.html">法令・出典確認</a></div></section>
 <section class="scope" style="margin-top:18px">正答基準は非公式です。逐字照合・公式正答の検証が完了していないため、表示結果は学習上の参考値です。問21は原本図を掲載し、参考解答による正誤を集計しています。記録はこのブラウザだけに保存されます。</section>
 <section class="surface maincard" style="margin-top:18px"><h2 class="section-title">データ管理</h2><p class="small">このページで記録される学習履歴のみ削除します。ドリルとテストの進捗・ブラウザキャッシュそのものは消去しません。</p><button id="erase" class="btn ghost" type="button">単元別の学習履歴を削除</button></section></main>
-<script src="../../assets/profiles.js"></script><script src="../../assets/profile-backup.js"></script><script src="suction-2018-questions-1.js"></script><script src="suction-2018-questions-2.js"></script><script src="curriculum.js"></script>
+<script src="../../assets/profiles.js"></script><script src="../../assets/secure-vault.js"></script><script src="../../assets/profile-backup.js"></script><script src="suction-2018-questions-1.js"></script><script src="suction-2018-questions-2.js"></script><script src="curriculum.js"></script>
 <script>
 (async()=>{await window.TeachingVault.ready;const localStorage=window.TeachingVault.local;const key=window.TeachingProfiles.scopedKey('care-quiz-history-v1',window.TeachingProfiles.activeId()),units=window.CARE_BANK.units,Q=window.CARE_BANK.questions,byId=new Map(Q.map(q=>[q.id,q]));const $=id=>document.getElementById(id);const format=(x,y)=>y?Math.round(100*x/y)+'%':'—';let records=[];try{records=JSON.parse(localStorage.getItem(key)||'[]').filter(x=>x&&byId.has(x.questionId)&&x.correct!==undefined)}catch(e){}
 function render(){
