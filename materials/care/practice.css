@@ -25,3 +25,14 @@ button:focus-visible,a:focus-visible,select:focus-visible{outline:3px solid #d5a
 .profile-actions button{border:1px solid #d7e0d8;border-radius:7px;background:white;padding:6px 12px;color:#435f4b;font-size:12px}
 .profile-actions button:disabled{opacity:.45;cursor:default}
 .profile-manager .profile-hint{font-size:11px;color:#748075;line-height:1.5;margin:10px 0 0}
+
+
+.vault-lock{position:fixed;inset:0;z-index:9999;display:grid;place-items:center;overflow:auto;background:#e9eee9;padding:16px}
+.vault-panel{width:min(100%,460px);background:#fff;border:1px solid #d9e3da;box-shadow:0 20px 70px #12281e20;padding:26px;border-radius:14px}
+.vault-panel h2{margin:0 0 12px;font-size:22px}.vault-description{font-size:13px;line-height:1.7;color:#637168}.vault-profile-name{font-weight:700;color:#286040}
+.vault-panel form{display:grid;gap:10px;margin:18px 0}.vault-panel label{font-weight:650;font-size:13px}
+.vault-panel input,.vault-picker{width:100%;padding:12px;border:1px solid #bfcfc3;border-radius:9px;font:inherit}
+.vault-panel button,.vault-switch{border:1px solid #29684a;background:#29684a;color:#fff;border-radius:8px;padding:11px 15px;font:inherit;cursor:pointer}
+.vault-panel button:disabled{opacity:.45}.vault-warning{color:#a33d2e;font-size:12px}.vault-panel .vault-switch{margin-top:10px;background:#fff;color:#29684a}
+.backup-actions{display:flex;flex-wrap:wrap;gap:7px;margin-top:12px}.backup-actions button{font-size:12px;border:1px solid #d2dfd4;background:white;color:#276044;padding:8px;border-radius:8px}
+.backup-actions .profile-hint{width:100%}
