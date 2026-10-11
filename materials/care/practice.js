@@ -1,18 +1,19 @@
-(()=>{'use strict';
+(async()=>{'use strict';
+const vault=window.TeachingVault;await vault.ready;const localStorage=vault.local;
 const BANK=window.CARE_BANK;const Q=BANK?BANK.questions:(window.CARE_QUIZ_QUESTIONS||[]), $=id=>document.getElementById(id), test=document.body.dataset.mode==='test';
 const unitParam=!test?new URLSearchParams(window.location.search).get('unit'):null;
 const activeUnit=BANK&&BANK.units.some(u=>u.id===unitParam)?unitParam:null;
 const prefix=window.TeachingProfiles.scopedKey('care-2018-'+(test?'exam':'drill')+'-v2'+(activeUnit?'--'+activeUnit:''),window.TeachingProfiles.activeId());
 const all=Q.filter(q=>!activeUnit||q.unitId===activeUnit).map(q=>q.n),byNum=n=>Q.find(q=>q.n===n),randomize=x=>{const a=[...x];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
 let order=[...all],answers={},first={},index=0,completed=false,elapsed=0,start=Date.now(),revealed={};
-let savedFromPrevious=false;
+
 let choiceMode='original',choiceOrders={};
 const validPermutation=a=>Array.isArray(a)&&a.length===4&&new Set(a).size===4&&a.every(i=>Number.isInteger(i)&&i>=1&&i<=4);
 const freshChoiceOrders=()=>Object.fromEntries(Q.map(q=>[q.n,randomize([1,2,3,4])]));
 const displayOrder=n=>choiceMode==='shuffled'&&validPermutation(choiceOrders[n])?choiceOrders[n]:[1,2,3,4];
 const displayNumber=(n,sourceValue)=>displayOrder(n).indexOf(sourceValue)+1;
-try{let o=JSON.parse(localStorage.getItem(prefix)||'{}');if(Array.isArray(o.order)&&o.order.length&&o.order.every(n=>all.includes(n))&&new Set(o.order).size===o.order.length)order=o.order;if(o.answers&&typeof o.answers==='object')answers=Object.fromEntries(Object.entries(o.answers).filter(([k,v])=>all.includes(Number(k))&&Number.isInteger(v)&&v>=1&&v<=4));if(o.first&&typeof o.first==='object')first=o.first;if(o.choiceMode==='shuffled')choiceMode='shuffled';savedFromPrevious=!!o.completed;if(o.choiceOrders&&typeof o.choiceOrders==='object')for(const [n,a] of Object.entries(o.choiceOrders)){if(validPermutation(a))choiceOrders[n]=a;}index=Math.max(0,Math.min(order.length-1,Number(o.index)||0));elapsed=Number(o.elapsed)||0;completed=!!o.completed;}catch(e){}
-const save=()=>{try{localStorage.setItem(prefix,JSON.stringify({order,answers,first,index,elapsed:elapsed+(Date.now()-start)/1000,completed,choiceMode,choiceOrders}));}catch(e){}};
+try{let o=JSON.parse(localStorage.getItem(prefix)||'{}');if(Array.isArray(o.order)&&o.order.length&&o.order.every(n=>all.includes(n))&&new Set(o.order).size===o.order.length)order=o.order;if(o.answers&&typeof o.answers==='object')answers=Object.fromEntries(Object.entries(o.answers).filter(([k,v])=>all.includes(Number(k))&&Number.isInteger(v)&&v>=1&&v<=4));if(o.first&&typeof o.first==='object')first=o.first;if(o.choiceMode==='shuffled')choiceMode='shuffled';if(o.choiceOrders&&typeof o.choiceOrders==='object')for(const [n,a] of Object.entries(o.choiceOrders)){if(validPermutation(a))choiceOrders[n]=a;}index=Math.max(0,Math.min(order.length-1,Number(o.index)||0));elapsed=Number(o.elapsed)||0;completed=!!o.completed;}catch(e){}
+const save=()=>localStorage.setItem(prefix,JSON.stringify({order,answers,first,index,elapsed:elapsed+(Date.now()-start)/1000,completed,choiceMode,choiceOrders}));
 const point=()=>{elapsed+=(Date.now()-start)/1000;start=Date.now()};
 const current=()=>byNum(order[index]);
 const answered=n=>Number.isInteger(answers[n]);
@@ -91,6 +92,7 @@ $('reset').onclick=()=>{if(!confirm('このページの回答履歴を削除し�
 $('retry-wrong').onclick=()=>{const wrong=order.filter(n=>answered(n)&&!correct(n));if(!wrong.length)return;order=wrong;wrong.forEach(n=>delete answers[n]);index=0;completed=false;point();save();render()};
 $('restart').onclick=()=>{if(!confirm('このページの回答を消去して全50問をやり直しますか？'))return;answers={};first={};order=[...all];index=0;completed=false;elapsed=0;start=Date.now();if(choiceMode==='shuffled')choiceOrders=freshChoiceOrders();save();render()};
 $('back').onclick=()=>{if(test&&completed){$('report').hidden=false;return}render()};
-window.addEventListener('pagehide',save);
+window.addEventListener('pagehide',()=>{save();vault.flush().catch(()=>{})});
+window.addEventListener('visibilitychange',()=>{if(document.visibilityState==='hidden')vault.flush().catch(()=>{})});
 if(test&&completed){const completedBefore=completed;report();}else render();
 })();
