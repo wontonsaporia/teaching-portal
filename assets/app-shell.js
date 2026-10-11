@@ -5,7 +5,7 @@
 'use strict';
 const $=id=>document.getElementById(id);
 const frame=$('learning-view'),status=$('app-status'),guest=window.TeachingGuest,vault=window.TeachingVault;
-const paths=new Set(['home.html','materials/care/suction-2018-quiz.html','materials/care/suction-2018-test.html','materials/care/dashboard.html','materials/care/regulations.html','materials/care/disclaimer.html','materials/math/word-chunks.html','materials/math/integer-equations.html']);
+const paths=new Set(['home.html','library.html','materials/care/suction-2018-quiz.html','materials/care/suction-2018-test.html','materials/care/dashboard.html','materials/care/regulations.html','materials/care/disclaimer.html','materials/math/word-chunks.html','materials/math/integer-equations.html']);
 const base=new URL('.',window.location.href);
 let locked=false,transitioning=false;
 window.TeachingAppShell={version:1};
@@ -105,7 +105,11 @@ window.addEventListener('popstate',()=>{const requested=new URLSearchParams(loca
   $('app-lock').textContent=isGuest?'ゲスト利用を終了':'ログアウト';
   $('app-mode-label').textContent=isGuest?'ゲスト利用中（タブ内一時保存）':'学習プロフィール：'+(window.TeachingProfiles.list().find(p=>p.id===window.TeachingProfiles.activeId())?.name||'ローカル');
   $('app-lock').disabled=false;
-  if(isGuest){$('app-settings').hidden=true}else $('app-settings').hidden=false;
+  if(isGuest){
+   const slot=$('app-backup-slot');
+   const note=document.createElement('p');note.textContent='ゲストの学習記録はこのタブ内で一時保存されます。';slot.append(note);
+   const clear=document.createElement('button');clear.type='button';clear.textContent='ゲスト履歴を消去';clear.onclick=()=>{if(!confirm('このタブのゲスト学習記録を消去しますか？'))return;guest.clear();guest.enter();go('home.html');$('account-menu').open=false};slot.append(clear);
+  }
   frame.hidden=false;
   updateSaveStatus();
   const requested=new URLSearchParams(location.search).get('page');
