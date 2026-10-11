@@ -24,11 +24,11 @@ function readJSON(base,otherwise){
 function link(path){return path}
 function resumeOptions(){
  const definitions=[
-  {base:'care-2018-drill-v2',kind:'練習ドリル',target:'materials/care/suction-2018-quiz.html'},
+  {base:'care-2018-drill-v2',unitTitle:'総合（全範囲）',target:'materials/care/suction-2018-quiz.html'},
   // Unsubmitted exams must never be selected as the automatic resume target.
   ...units.map(unit=>({
    base:'care-2018-drill-v2--'+unit.id,
-   kind:unit.short+' の単元別ドリル',
+   unitTitle:unit.title,
    target:'materials/care/suction-2018-quiz.html?unit='+encodeURIComponent(unit.id)
   }))
  ];
@@ -113,7 +113,7 @@ function render(){
  const anchor=$('resume-action');
  if(selected){
   $('resume-title').textContent='学習を再開';
-  $('resume-description').textContent=selected.kind+' · '+selected.answered+' / '+selected.total+'問 回答済み';
+  $('resume-description').textContent=selected.unitTitle+' · '+selected.answered+'/'+selected.total+'問';
   anchor.href=link(selected.target);anchor.querySelector('.resume-action-text').textContent='続きから学習';
  }else{
   $('resume-title').textContent=local?'新しい学習を始める':'プロフィールから始める';
