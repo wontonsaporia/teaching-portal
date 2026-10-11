@@ -1,27 +1,90 @@
 <!doctype html>
 <html lang="ja">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>教材一覧 | Teaching Portal v2</title>
-  <link rel="stylesheet" href="assets/style.css">
-  <script src="assets/materials.js" defer></script>
-  <script src="assets/portal.js" defer></script><script src="assets/guest-session.js" defer></script><script src="assets/home-mode.js" defer></script>
-<link rel="manifest" href="manifest.webmanifest"><meta name="theme-color" content="#245d43"><link rel="icon" type="image/svg+xml" href="assets/app-icon.svg"></head>
-<body><nav class="wrap" style="padding-top:14px"><a href="index.html">← START画面</a></nav>
-  <header><div class="wrap"><p class="eyebrow">TEACHING PORTAL</p><h1>学びにつながる、教材を。</h1><p class="intro">授業で使う解説、練習問題、学習ツールをひとつの場所に。</p></div></header>
-  <main class="wrap"><section id="session-info" aria-live="polite"></section>
-    <section aria-labelledby="catalog-title">
-      <div class="heading"><h2 id="catalog-title">教材一覧</h2><p id="count" role="status" aria-live="polite"></p></div>
-      <div class="filters">
-        <div><label for="search">教材を検索</label><input id="search" type="search" placeholder="教材名・単元・キーワード" autocomplete="off"></div>
-        <div><label for="subject">教科</label><select id="subject"><option value="all">すべての教科</option><option value="math">数学</option><option value="english">英語</option><option value="art">美術</option><option value="care">医療・介護</option></select></div>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#203d37">
+<title>HOME | Teaching Portal v2</title>
+<link rel="stylesheet" href="assets/style.css">
+<link rel="stylesheet" href="assets/home.css">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/svg+xml" href="assets/app-icon.svg">
+<script src="assets/materials.js" defer></script>
+<script src="assets/portal.js" defer></script>
+<script src="assets/guest-session.js" defer></script>
+<script src="materials/care/curriculum.js" defer></script>
+<script src="assets/home-mode.js" defer></script>
+</head>
+<body class="learning-home">
+<main class="wrap">
+  <section class="home-hero" aria-labelledby="home-title">
+    <div class="home-topline"><span class="home-kicker">LEARNING DESK / 01</span><span id="home-mode" class="home-mode">利用モードを確認中…</span></div>
+    <div class="home-hero-main">
+      <div>
+        <h1 id="home-title">学びの、<br><span>続きから。</span></h1>
+        <p id="home-intro" class="home-lead">教材を開く、続きを解く、記録を振り返る。ここから始めましょう。</p>
       </div>
-      <div id="materials" class="grid"></div>
-      <p id="empty" class="empty" hidden>該当する教材はありません。検索語や教科を変えてみてください。</p>
-      <noscript><p>教材の検索にはJavaScriptを有効にしてください。</p><ul><li><a href="materials/math/word-chunks.html">数学文章題を読む</a></li><li><a href="materials/math/integer-equations.html">整数と方程式の問題集</a></li></ul></noscript>
-    </section>
-  </main>
-  <footer class="wrap">学習指導ポータル · 教材を少しずつ追加していきます。</footer>
-<script>if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}))}</script></body>
+      <div class="home-hero-mark" aria-hidden="true"><span>TP</span><span class="mark-dot">.</span></div>
+    </div>
+    <div class="home-hero-footer">
+      <span id="home-privacy-note">学習情報は端末内に保存されます。</span>
+      <button type="button" id="home-clear-guest" class="home-text-button" hidden>ゲスト履歴を消去</button>
+    </div>
+  </section>
+
+  <section class="home-overview" aria-labelledby="overview-title">
+    <div class="home-section-heading">
+      <div><span class="home-kicker">YOUR WORKSPACE / 02</span><h2 id="overview-title">学習の現在地</h2></div>
+      <a class="home-subtle-link" href="materials/care/dashboard.html">詳しい学習分析を見る <span aria-hidden="true">↗</span></a>
+    </div>
+    <div class="home-overview-grid">
+      <article class="home-resume">
+        <span class="home-card-label">CONTINUE LEARNING</span>
+        <div class="home-resume-body">
+          <span id="resume-meta" class="home-resume-meta">学習記録を確認しています</span>
+          <h3 id="resume-title">続きのある教材</h3>
+          <p id="resume-description">前回の取り組みがあれば、ここから再開できます。</p>
+        </div>
+        <a id="resume-action" class="home-primary-link" href="materials/care/suction-2018-quiz.html">練習ドリルを開く <span aria-hidden="true">→</span></a>
+      </article>
+      <aside class="home-stat-panel" aria-labelledby="summary-title">
+        <div class="home-stat-heading"><span class="home-card-label">LEARNING SNAPSHOT</span><h3 id="summary-title">記録の概要</h3></div>
+        <div class="home-stats">
+          <div><strong id="home-attempts">—</strong><span>回答履歴</span></div>
+          <div><strong id="home-covered">—</strong><span>取り組んだ問題</span></div>
+          <div><strong id="home-recent">—</strong><span>直近の参考正答率</span></div>
+        </div>
+        <p id="home-stats-note" class="home-stats-note">現在の学習データから集計します。</p>
+      </aside>
+    </div>
+  </section>
+
+  <section class="home-focus" aria-labelledby="focus-title">
+    <div class="home-section-heading">
+      <div><span class="home-kicker">REVIEW / 03</span><h2 id="focus-title">復習の手がかり</h2></div>
+      <p>喀痰吸引等研修・9単元</p>
+    </div>
+    <div id="home-focus-list" class="home-focus-grid" aria-live="polite">
+      <p class="home-empty-note">学習記録を確認しています。</p>
+    </div>
+    <p class="home-quality-note">※ 正誤判定は公式解答表による監修が完了していない暫定的な参考値です。学習理解度や正式な試験成績を示すものではありません。</p>
+  </section>
+
+  <section class="home-library" id="library" aria-labelledby="catalog-title">
+    <div class="home-section-heading">
+      <div><span class="home-kicker">EXPLORE MATERIALS / 04</span><h2 id="catalog-title">教材を探す</h2></div>
+      <p id="count" role="status" aria-live="polite"></p>
+    </div>
+    <div class="filters">
+      <div><label for="search">教材名・単元で検索</label><input id="search" type="search" placeholder="キーワードを入力" autocomplete="off"></div>
+      <div><label for="subject">教科・分野</label><select id="subject"><option value="all">すべての教科</option><option value="math">数学</option><option value="english">英語</option><option value="art">美術</option><option value="care">医療・介護</option></select></div>
+    </div>
+    <div id="materials" class="grid"></div>
+    <p id="empty" class="empty" hidden>該当する教材はありません。検索語や教科を変えてみてください。</p>
+    <noscript><p>教材一覧の検索にはJavaScriptを有効にしてください。</p><a href="materials/math/word-chunks.html">数学文章題を読む</a></noscript>
+  </section>
+</main>
+<footer class="wrap home-footer">TEACHING PORTAL / V2 PREVIEW · メールアドレス・外部ログインは不要です。</footer>
+<script>if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}))}</script>
+</body>
 </html>
