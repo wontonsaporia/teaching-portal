@@ -47,7 +47,7 @@ function mount(){
  const add=document.createElement('button');add.type='button';add.textContent='＋ 追加';add.onclick=create;
  const del=document.createElement('button');del.type='button';del.textContent='削除';del.disabled=activeId()==='default';del.onclick=remove;
  controls.append(add,del);
- const hint=document.createElement('p');hint.className='profile-hint';hint.textContent='このブラウザ内だけの保存です。ログイン・端末間同期・パスワード保護はありません。';
+ const hint=document.createElement('p');hint.className='profile-hint';hint.textContent='この端末内のプロフィールです。学習データはパスワードで暗号化します。端末間の自動同期はありません。';
  box.append(heading,select,controls,hint);
  if(target.classList.contains('side'))target.insertBefore(box,target.firstChild);
  else target.insertBefore(box,target.firstChild);
