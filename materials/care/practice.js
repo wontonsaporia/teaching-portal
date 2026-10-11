@@ -93,6 +93,7 @@ $('reset').onclick=()=>{if(!confirm('このページの回答履歴を削除し�
 $('retry-wrong').onclick=()=>{const wrong=order.filter(n=>answered(n)&&!correct(n));if(!wrong.length)return;order=wrong;wrong.forEach(n=>delete answers[n]);index=0;completed=false;point();save();render()};
 $('restart').onclick=()=>{if(!confirm('このページの回答を消去して全50問をやり直しますか？'))return;answers={};first={};order=[...all];index=0;completed=false;elapsed=0;start=Date.now();if(choiceMode==='shuffled')choiceOrders=freshChoiceOrders();save();render()};
 $('back').onclick=()=>{if(test&&completed){$('report').hidden=false;return}render()};
+window.TeachingSaveProgress=async()=>{point();save();await vault.flush()};
 window.addEventListener('pagehide',()=>{save();vault.flush().catch(()=>{})});
 window.addEventListener('visibilitychange',()=>{if(document.visibilityState==='hidden')vault.flush().catch(()=>{})});
 if(test&&completed){const completedBefore=completed;report();}else render();
