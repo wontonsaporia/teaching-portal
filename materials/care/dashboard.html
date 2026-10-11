@@ -6,11 +6,11 @@
 <div class="summary"><div class="metric"><strong id="total">—</strong><span>回答記録</span></div><div class="metric"><strong id="first">—</strong><span>初回正答率</span></div><div class="metric"><strong id="recent">—</strong><span>直近の正答率</span></div></div>
 <section class="surface maincard"><h2 class="section-title">単元別の正答率</h2><p class="small">グラフは各単元における初回の回答を集計しています。淡色の斜線は非公式・未検証の解答基準を示します。</p><div id="units"></div><p id="empty" class="empty" hidden>まだ回答履歴がありません。ドリルまたは模擬テストに取り組むと、単元別の成績が表示されます。</p></section>
 <section class="surface maincard" style="margin-top:18px"><h2 class="section-title">学習の続き</h2><div class="links"><a href="suction-2018-quiz.html">練習ドリル</a><a href="suction-2018-test.html">模擬テスト</a><a href="regulations.html">法令・出典確認</a></div></section>
-<section class="scope" style="margin-top:18px">正答基準は非公式です。逐字照合・公式正答の検証が完了していないため、表示結果は学習上の参考値です。原本図を欠く問21の回答は成績に含めません。記録はこのブラウザだけに保存されます。</section>
+<section class="scope" style="margin-top:18px">正答基準は非公式です。逐字照合・公式正答の検証が完了していないため、表示結果は学習上の参考値です。問21は原本図を掲載し、参考解答による正誤を集計しています。記録はこのブラウザだけに保存されます。</section>
 <section class="surface maincard" style="margin-top:18px"><h2 class="section-title">データ管理</h2><p class="small">このページで記録される学習履歴のみ削除します。ドリルとテストの進捗・ブラウザキャッシュそのものは消去しません。</p><button id="erase" class="btn ghost" type="button">単元別の学習履歴を削除</button></section></main>
 <script src="../../assets/profiles.js"></script><script src="../../assets/profile-backup.js"></script><script src="suction-2018-questions-1.js"></script><script src="suction-2018-questions-2.js"></script><script src="curriculum.js"></script>
 <script>
-(()=>{const key=window.TeachingProfiles.scopedKey('care-quiz-history-v1',window.TeachingProfiles.activeId()),units=window.CARE_BANK.units,Q=window.CARE_BANK.questions,byId=new Map(Q.map(q=>[q.id,q]));const $=id=>document.getElementById(id);const format=(x,y)=>y?Math.round(100*x/y)+'%':'—';let records=[];try{records=JSON.parse(localStorage.getItem(key)||'[]').filter(x=>x&&byId.has(x.questionId)&&x.correct!==undefined)}catch(e){}
+(async()=>{await window.TeachingVault.ready;const localStorage=window.TeachingVault.local;const key=window.TeachingProfiles.scopedKey('care-quiz-history-v1',window.TeachingProfiles.activeId()),units=window.CARE_BANK.units,Q=window.CARE_BANK.questions,byId=new Map(Q.map(q=>[q.id,q]));const $=id=>document.getElementById(id);const format=(x,y)=>y?Math.round(100*x/y)+'%':'—';let records=[];try{records=JSON.parse(localStorage.getItem(key)||'[]').filter(x=>x&&byId.has(x.questionId)&&x.correct!==undefined)}catch(e){}
 function render(){
  $('total').textContent=records.length+'件';
  const firstByQ=new Map();for(const row of records)if(!firstByQ.has(row.questionId))firstByQ.set(row.questionId,row);
