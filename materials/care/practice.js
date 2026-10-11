@@ -1,6 +1,9 @@
 (()=>{'use strict';
-const BANK=window.CARE_BANK;const Q=BANK?BANK.questions:(window.CARE_QUIZ_QUESTIONS||[]), $=id=>document.getElementById(id), test=document.body.dataset.mode==='test', prefix=window.TeachingProfiles.scopedKey('care-2018-'+(test?'exam':'drill')+'-v2',window.TeachingProfiles.activeId());
-const all=Q.map(q=>q.n),byNum=n=>Q.find(q=>q.n===n),randomize=x=>{const a=[...x];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+const BANK=window.CARE_BANK;const Q=BANK?BANK.questions:(window.CARE_QUIZ_QUESTIONS||[]), $=id=>document.getElementById(id), test=document.body.dataset.mode==='test';
+const unitParam=!test?new URLSearchParams(window.location.search).get('unit'):null;
+const activeUnit=BANK&&BANK.units.some(u=>u.id===unitParam)?unitParam:null;
+const prefix=window.TeachingProfiles.scopedKey('care-2018-'+(test?'exam':'drill')+'-v2'+(activeUnit?'--'+activeUnit:''),window.TeachingProfiles.activeId());
+const all=Q.filter(q=>!activeUnit||q.unitId===activeUnit).map(q=>q.n),byNum=n=>Q.find(q=>q.n===n),randomize=x=>{const a=[...x];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
 let order=[...all],answers={},first={},index=0,completed=false,elapsed=0,start=Date.now(),revealed={};
 let savedFromPrevious=false;
 let choiceMode='original',choiceOrders={};
@@ -8,7 +11,7 @@ const validPermutation=a=>Array.isArray(a)&&a.length===4&&new Set(a).size===4&&a
 const freshChoiceOrders=()=>Object.fromEntries(Q.map(q=>[q.n,randomize([1,2,3,4])]));
 const displayOrder=n=>choiceMode==='shuffled'&&validPermutation(choiceOrders[n])?choiceOrders[n]:[1,2,3,4];
 const displayNumber=(n,sourceValue)=>displayOrder(n).indexOf(sourceValue)+1;
-try{let o=JSON.parse(localStorage.getItem(prefix)||'{}');if(Array.isArray(o.order)&&o.order.length&&o.order.every(n=>all.includes(n))&&new Set(o.order).size===o.order.length)order=o.order;if(o.answers&&typeof o.answers==='object')answers=o.answers;if(o.first&&typeof o.first==='object')first=o.first;if(o.choiceMode==='shuffled')choiceMode='shuffled';savedFromPrevious=!!o.completed;if(o.choiceOrders&&typeof o.choiceOrders==='object')for(const [n,a] of Object.entries(o.choiceOrders)){if(validPermutation(a))choiceOrders[n]=a;}index=Math.max(0,Math.min(order.length-1,Number(o.index)||0));elapsed=Number(o.elapsed)||0;completed=!!o.completed;}catch(e){}
+try{let o=JSON.parse(localStorage.getItem(prefix)||'{}');if(Array.isArray(o.order)&&o.order.length&&o.order.every(n=>all.includes(n))&&new Set(o.order).size===o.order.length)order=o.order;if(o.answers&&typeof o.answers==='object')answers=Object.fromEntries(Object.entries(o.answers).filter(([k,v])=>all.includes(Number(k))&&Number.isInteger(v)&&v>=1&&v<=4));if(o.first&&typeof o.first==='object')first=o.first;if(o.choiceMode==='shuffled')choiceMode='shuffled';savedFromPrevious=!!o.completed;if(o.choiceOrders&&typeof o.choiceOrders==='object')for(const [n,a] of Object.entries(o.choiceOrders)){if(validPermutation(a))choiceOrders[n]=a;}index=Math.max(0,Math.min(order.length-1,Number(o.index)||0));elapsed=Number(o.elapsed)||0;completed=!!o.completed;}catch(e){}
 const save=()=>{try{localStorage.setItem(prefix,JSON.stringify({order,answers,first,index,elapsed:elapsed+(Date.now()-start)/1000,completed,choiceMode,choiceOrders}));}catch(e){}};
 const point=()=>{elapsed+=(Date.now()-start)/1000;start=Date.now()};
 const current=()=>byNum(order[index]);
@@ -34,7 +37,7 @@ function feedback(q){
 }
 function render(){
  $('screen').hidden=false;$('report').hidden=true;
- const q=current(),eligible=scoreable();$('choice-order').value=choiceMode;$('choice-order').disabled=test&&Object.keys(answers).some(n=>answered(Number(n)));
+ const q=current(),eligible=scoreable();if(activeUnit){const u=BANK.getUnit(activeUnit);document.querySelector('.hero h1').textContent=u.title+'｜単元別ドリル';document.querySelector('.hero .sub').textContent='この単元の'+all.length+'問を練習します。回答後にすぐ正誤が確認できます。';}$('choice-order').value=choiceMode;$('choice-order').disabled=test&&Object.keys(answers).some(n=>answered(Number(n)));
 $('progress').style.width=(eligible.filter(answered).length/Math.max(eligible.length,1)*100)+'%';
  $('position').textContent='原本 問'+q.n+'（'+(index+1)+' / '+order.length+'）';
  $('counter').textContent=eligible.filter(answered).length+' / '+eligible.length+'問 回答済み（採点対象）';
