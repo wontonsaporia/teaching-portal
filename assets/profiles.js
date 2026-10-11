@@ -50,7 +50,7 @@ function mount(){
  const hint=document.createElement('p');hint.className='profile-hint';hint.textContent='このブラウザ内だけの保存です。ログイン・端末間同期・パスワード保護はありません。';
  box.append(heading,select,controls,hint);
  if(target.classList.contains('side'))target.insertBefore(box,target.firstChild);
- else target.append(box);
+ else target.insertBefore(box,target.firstChild);
 }
 window.TeachingProfiles={activeId,scopedKey:keyFor,list:load,mount};
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',mount,{once:true});else mount();
