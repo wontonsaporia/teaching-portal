@@ -15,6 +15,13 @@ window.TEACHING_MATERIALS = [
     path: 'materials/care/suction-2018-test.html', action: 'テストを始める', external: false
   },
   {
+    id: 'care-suction-dashboard', subject: 'care', subjectLabel: '医療・介護', grade: '学習分析', format: 'ダッシュボード',
+    title: '喀痰吸引等研修・学習ダッシュボード',
+    description: '9単元ごとの初回正答率と直近の成績を可視化。回答履歴をもとに学習傾向を確認します。集計は未検証の参考解答に基づきます。',
+    tags: ['喀痰吸引', '経管栄養', '単元別', '学習記録', '成績', '分析'],
+    path: 'materials/care/dashboard.html', action: '学習状況を見る', external: false
+  },
+  {
     id: 'math-word-chunks', subject: 'math', subjectLabel: '数学', grade: '中1', format: 'HTML',
     title: '数学文章題を読む',
     description: '連続する整数・偶数の文章を、意味のまとまりごとに読み、式へ置きかえるスライド教材。',
