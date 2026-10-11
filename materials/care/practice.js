@@ -41,7 +41,7 @@ $('progress').style.width=(eligible.filter(answered).length/Math.max(eligible.le
  $('category').textContent=q.topic;$('question').textContent=q.stem;
  $('source-page').textContent='原本 p.'+page(q.n)+' · 原文逐字照合待ち · 参考解答未検証';
  const diagram=$('diagram');diagram.hidden=q.n!==21;
- if(q.n===21){diagram.textContent='問21の図（原本参照）。画像の読み込みに失敗した場合は原本PDFを参照してください。';if(window.CARE_Q21_IMAGE){const img=document.createElement('img');img.src=window.CARE_Q21_IMAGE;img.alt='頭頸部の矢状断面：空気と飲食物の経路。図中に①から④の番号と指示線がある。';img.loading='lazy';img.style.cssText='display:block;width:100%;max-width:560px;height:auto;margin:auto;';diagram.replaceChildren(img);}}
+ if(q.n===21){diagram.textContent='問21の図（原本を軽量化して表示）。画像が見えない場合は原本PDFを参照してください。';if(window.CARE_Q21_IMAGE){const img=document.createElement('img');img.src=window.CARE_Q21_IMAGE;img.alt='頭頸部の矢状断面：空気と飲食物の経路。図中に①から④の番号と指示線がある。';img.loading='lazy';img.style.cssText='display:block;width:100%;max-width:560px;height:auto;margin:auto;';diagram.replaceChildren(img);}}
  const box=$('options');box.replaceChildren();
  displayOrder(q.n).forEach((value,i)=>{const v=q.options[value-1],b=elements('button',null,'choice');b.type='button';b.append(elements('span',String(i+1),'number'),elements('span',v));const selected=answers[q.n]===value;
  if(selected)b.classList.add('selected');if(!scoreEligible(q.n)){b.disabled=true;}else if(!test&&answered(q.n)){b.disabled=true;if(value===q.key)b.classList.add('right');if(selected&&!correct(q.n))b.classList.add('wrong')}
@@ -68,7 +68,7 @@ function report(){
  $('wrong-list').replaceChildren();
  [...wrong,...pending].forEach(q=>{const b=elements('button','問'+q.n+(answered(q.n)?'（不正解）':'（未回答）'));b.onclick=()=>{if(test){$('review-dialog').hidden=false;const text=displayOrder(q.n).map((n,i)=>(i+1)+'）'+q.options[n-1]).join('\n');$('review-dialog').textContent='問'+q.n+'\n'+q.stem+'\n'+text+'\nあなたの回答：'+(answered(q.n)?displayNumber(q.n,answers[q.n]):'未回答')+'\n参考解答：'+displayNumber(q.n,q.key)+'\n'+(q.explanation||'') }else go(order.indexOf(q.n))};$('wrong-list').append(b)});
  if(!wrong.length&&!pending.length)$('wrong-list').append(elements('p','すべて正解です。','muted'));
- $('quality').textContent='公式解答表がなく、全問の原文逐字照合も未完了です。図版未確認の問21は集計対象外としています。得点は暫定的な学習用指標であり、正式な成績ではありません。';
+ $('quality').textContent='公式解答表がなく、全問の原文逐字照合も未完了です。参考解答は法令や医学的知識等による推論です。得点は学習用の参考値です。';
  $('review-dialog').hidden=true;
  window.scrollTo({top:0,behavior:'smooth'});
 }
