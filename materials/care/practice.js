@@ -1,5 +1,5 @@
 (()=>{'use strict';
-const BANK=window.CARE_BANK;const Q=BANK?BANK.questions:(window.CARE_QUIZ_QUESTIONS||[]), $=id=>document.getElementById(id), test=document.body.dataset.mode==='test', prefix='care-2018-'+(test?'exam':'drill')+'-v2';
+const BANK=window.CARE_BANK;const Q=BANK?BANK.questions:(window.CARE_QUIZ_QUESTIONS||[]), $=id=>document.getElementById(id), test=document.body.dataset.mode==='test', prefix=window.TeachingProfiles.scopedKey('care-2018-'+(test?'exam':'drill')+'-v2',window.TeachingProfiles.activeId());
 const all=Q.map(q=>q.n),byNum=n=>Q.find(q=>q.n===n),randomize=x=>{const a=[...x];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
 let order=[...all],answers={},first={},index=0,completed=false,elapsed=0,start=Date.now(),revealed={};
 let choiceMode='original',choiceOrders={};
@@ -13,7 +13,7 @@ const point=()=>{elapsed+=(Date.now()-start)/1000;start=Date.now()};
 const current=()=>byNum(order[index]);
 const answered=n=>Number.isInteger(answers[n]);
 const scoreEligible=n=>!BANK||BANK.scoreEligible(byNum(n));
-const historyKey='care-quiz-history-v1';
+const historyKey=window.TeachingProfiles.scopedKey('care-quiz-history-v1',window.TeachingProfiles.activeId());
 function record(n,choice){const q=byNum(n);if(!q||!scoreEligible(n))return;try{const h=JSON.parse(localStorage.getItem(historyKey)||'[]');h.push({questionId:q.id||String(n),examId:q.examId||'suction-2018-okinawa',number:n,unitId:q.unitId||q.topic,mode:test?'test':'drill',choice,correct:choice===q.key,keyStatus:q.answerVerification||'unofficial',at:new Date().toISOString(),firstAttempt:!h.some(x=>x.questionId===(q.id||String(n)))});localStorage.setItem(historyKey,JSON.stringify(h.slice(-10000)))}catch(e){}}
 const correct=n=>scoreEligible(n)&&answered(n)&&answers[n]===byNum(n).key;
 const scoreable=()=>order.filter(scoreEligible);
