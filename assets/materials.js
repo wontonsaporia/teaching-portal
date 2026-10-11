@@ -3,9 +3,16 @@ window.TEACHING_MATERIALS = [
   {
     id: 'care-suction-2018', subject: 'care', subjectLabel: '医療・介護', grade: '喀痰吸引等研修', format: '一問一答ドリル',
     title: '喀痰吸引等研修・50問練習ドリル',
-    description: '1問答えるごとに正誤と解説を表示。途中保存と間違えた問題だけの復習に対応。正答は非公式の参考解答です。',
+    description: '読みやすい1問表示と即時正誤判定。途中保存と間違えた問題だけの復習に対応。原文照合・正答検証は一部未完了です。',
     tags: ['喀痰吸引', '経管栄養', '感染予防', '看護', '介護', '筆記試験'],
     path: 'materials/care/suction-2018-quiz.html', action: '練習を始める', external: false
+  },
+  {
+    id: 'care-suction-2018-test', subject: 'care', subjectLabel: '医療・介護', grade: '喀痰吸引等研修', format: '模擬テスト',
+    title: '喀痰吸引等研修・50問テスト',
+    description: '最後にまとめて採点。総合正答率・分野別成績・所要時間・要復習問題の分析レポートを表示します。参考解答は非公式です。',
+    tags: ['喀痰吸引', '経管栄養', '分析レポート', '模擬テスト', '50問'],
+    path: 'materials/care/suction-2018-test.html', action: 'テストを始める', external: false
   },
   {
     id: 'math-word-chunks', subject: 'math', subjectLabel: '数学', grade: '中1', format: 'HTML',
