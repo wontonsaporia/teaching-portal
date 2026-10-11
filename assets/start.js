@@ -12,7 +12,7 @@ function refresh(){
  }
  select.value=profiles.activeId();
 }
-function navigate(){window.location.assign('home.html')}
+function navigate(){window.location.assign('app.html')}
 $('start-guest').addEventListener('click',()=>{
  try{guest.enter();navigate()}catch(e){$('entry-status').textContent='このブラウザでは一時保存できません。ブラウザの保存設定を確認してください。'}
 });
