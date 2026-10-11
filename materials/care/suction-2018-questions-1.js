@@ -329,9 +329,9 @@ window.CARE_QUIZ_QUESTIONS = [
       "①咽頭・②喉頭・③気管・④食道",
       "①喉頭・②咽頭・③気管・④食道"
     ],
-    "key": 2,
+    "key": 4,
     "topic": "喀痰吸引",
-    "explanation": "問21の原本図を確認してください。参考解答は図中の番号と解剖学的配置から推定したもので、公式解答ではありません。",
+    "explanation": "提示された原本の図で、①は喉頭、②は咽頭、③は気管、④は食道を示すため、4が適切です。これは図に基づく推論で、公式解答表による確認ではありません。",
     "sourcePage": 5,
     "transcriptionReviewed": false,
     "answerKeyStatus": "unofficial_unverified"
