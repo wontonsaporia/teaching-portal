@@ -17,7 +17,7 @@ function appendOriginalText(target,raw){
  target.replaceChildren();
  for(const [i,line] of raw.split('\n').entries()){
   if(i)target.append(document.createElement('br'));
-  const ruby=/([^｛｝\\s]+)｛([^｛｝]+)｝/g;
+  const ruby=/([\p{Script=Han}々ヶ]+)｛([^｛｝]+)｝/gu;
   let start=0,match;
   while((match=ruby.exec(line))){
    if(match.index>start)target.append(document.createTextNode(line.slice(start,match.index)));
