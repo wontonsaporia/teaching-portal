@@ -1,4 +1,4 @@
-/* 平成30年度後期 喀痰吸引等研修 1回目筆記試験・問1〜25。参考解答は非公式。 */
+/* 原本を参照した転記。設問1〜25は逐字照合未完了。非公式参考解答は未検証。 */
 window.CARE_QUIZ_QUESTIONS = [
   {
     "n": 1,
@@ -11,7 +11,10 @@ window.CARE_QUIZ_QUESTIONS = [
     ],
     "key": 4,
     "topic": "尊厳・倫理",
-    "explanation": "健康で文化的な最低限度の生活を営む権利は憲法25条です。"
+    "explanation": "健康で文化的な最低限度の生活を営む権利は憲法25条です。",
+    "sourcePage": 1,
+    "transcriptionReviewed": false,
+    "answerKeyStatus": "unofficial_unverified"
   },
   {
     "n": 2,
@@ -24,7 +27,10 @@ window.CARE_QUIZ_QUESTIONS = [
     ],
     "key": 3,
     "topic": "尊厳・倫理",
-    "explanation": "医療者の適切な説明や助言は、本人の自己決定を支援するものです。"
+    "explanation": "医療者の適切な説明や助言は、本人の自己決定を支援するものです。",
+    "sourcePage": 1,
+    "transcriptionReviewed": false,
+    "answerKeyStatus": "unofficial_unverified"
   },
   {
     "n": 3,
@@ -37,7 +43,10 @@ window.CARE_QUIZ_QUESTIONS = [
     ],
     "key": 2,
     "topic": "尊厳・倫理",
-    "explanation": "イとウが適切です。チーム内で必要な情報共有まで一律に禁止されるわけではありません。"
+    "explanation": "イとウが適切です。チーム内で必要な情報共有まで一律に禁止されるわけではありません。",
+    "sourcePage": 1,
+    "transcriptionReviewed": false,
+    "answerKeyStatus": "unofficial_unverified"
   },
   {
     "n": 4,
@@ -50,7 +59,10 @@ window.CARE_QUIZ_QUESTIONS = [
     ],
     "key": 4,
     "topic": "尊厳・倫理",
-    "explanation": "本人からの開示請求については、法令に沿った対応が求められます。"
+    "explanation": "本人からの開示請求については、法令に沿った対応が求められます。",
+    "sourcePage": 1,
+    "transcriptionReviewed": false,
+    "answerKeyStatus": "unofficial_unverified"
   },
   {
     "n": 5,
@@ -63,7 +75,10 @@ window.CARE_QUIZ_QUESTIONS = [
     ],
     "key": 2,
     "topic": "尊厳・倫理",
-    "explanation": "利用者へのわかりやすい説明は、ケアにかかわる者に共通して重要です。"
+    "explanation": "利用者へのわかりやすい説明は、ケアにかかわる者に共通して重要です。",
+    "sourcePage": 2,
+    "transcriptionReviewed": false,
+    "answerKeyStatus": "unofficial_unverified"
   },
   {
     "n": 6,
@@ -76,7 +91,10 @@ window.CARE_QUIZ_QUESTIONS = [
     ],
     "key": 4,
     "topic": "尊厳・倫理",
-    "explanation": "疑問や不安には耳を傾け、必要に応じて医療職やチームと共有します。"
+    "explanation": "疑問や不安には耳を傾け、必要に応じて医療職やチームと共有します。",
+    "sourcePage": 2,
+    "transcriptionReviewed": false,
+    "answerKeyStatus": "unofficial_unverified"
   },
   {
     "n": 7,
@@ -89,7 +107,10 @@ window.CARE_QUIZ_QUESTIONS = [
     ],
     "key": 1,
     "topic": "制度・連携",
-    "explanation": "介護保険の保険者は原則として市町村・特別区です。"
+    "explanation": "介護保険の保険者は原則として市町村・特別区です。",
+    "sourcePage": 2,
+    "transcriptionReviewed": false,
+    "answerKeyStatus": "unofficial_unverified"
   },
   {
     "n": 8,
@@ -102,7 +123,10 @@ window.CARE_QUIZ_QUESTIONS = [
     ],
     "key": 1,
     "topic": "制度・連携",
-    "explanation": "市町村特別給付があり、区分支給限度額を超えた分は原則自己負担です。"
+    "explanation": "市町村特別給付があり、区分支給限度額を超えた分は原則自己負担です。",
+    "sourcePage": 2,
+    "transcriptionReviewed": false,
+    "answerKeyStatus": "unofficial_unverified"
   },
   {
     "n": 9,
@@ -115,7 +139,10 @@ window.CARE_QUIZ_QUESTIONS = [
     ],
     "key": 1,
     "topic": "制度・連携",
-    "explanation": "経管栄養は医行為に含まれ、介護職員等による実施には法令上の条件があります。"
+    "explanation": "経管栄養は医行為に含まれ、介護職員等による実施には法令上の条件があります。",
+    "sourcePage": 2,
+    "transcriptionReviewed": false,
+    "answerKeyStatus": "unofficial_unverified"
   },
   {
     "n": 10,
@@ -128,7 +155,10 @@ window.CARE_QUIZ_QUESTIONS = [
     ],
     "key": 4,
     "topic": "制度・連携",
-    "explanation": "役割と責任の明確化は多職種連携の基盤です。"
+    "explanation": "役割と責任の明確化は多職種連携の基盤です。",
+    "sourcePage": 3,
+    "transcriptionReviewed": false,
+    "answerKeyStatus": "unofficial_unverified"
   },
   {
     "n": 11,
@@ -141,7 +171,10 @@ window.CARE_QUIZ_QUESTIONS = [
     ],
     "key": 2,
     "topic": "安全・感染予防",
-    "explanation": "事故は利用者だけでなく、職員や周囲にも被害をもたらすことがあります。"
+    "explanation": "事故は利用者だけでなく、職員や周囲にも被害をもたらすことがあります。",
+    "sourcePage": 3,
+    "transcriptionReviewed": false,
+    "answerKeyStatus": "unofficial_unverified"
   },
   {
     "n": 12,
@@ -154,7 +187,10 @@ window.CARE_QUIZ_QUESTIONS = [
     ],
     "key": 2,
     "topic": "安全・感染予防",
-    "explanation": "胸骨圧迫は適切な深さとテンポで実施します。実際の救命対応では最新の指針に従ってください。"
+    "explanation": "胸骨圧迫は適切な深さとテンポで実施します。実際の救命対応では最新の指針に従ってください。",
+    "sourcePage": 3,
+    "transcriptionReviewed": false,
+    "answerKeyStatus": "unofficial_unverified"
   },
   {
     "n": 13,
@@ -167,7 +203,10 @@ window.CARE_QUIZ_QUESTIONS = [
     ],
     "key": 3,
     "topic": "安全・感染予防",
-    "explanation": "同じ利用者でも、ケア行為間に手指衛生が必要な場面があります。"
+    "explanation": "同じ利用者でも、ケア行為間に手指衛生が必要な場面があります。",
+    "sourcePage": 3,
+    "transcriptionReviewed": false,
+    "answerKeyStatus": "unofficial_unverified"
   },
   {
     "n": 14,
@@ -180,7 +219,10 @@ window.CARE_QUIZ_QUESTIONS = [
     ],
     "key": 2,
     "topic": "安全・感染予防",
-    "explanation": "血液・体液等による衣服の汚染が想定される場面で防護具を使用します。"
+    "explanation": "血液・体液等による衣服の汚染が想定される場面で防護具を使用します。",
+    "sourcePage": 3,
+    "transcriptionReviewed": false,
+    "answerKeyStatus": "unofficial_unverified"
   },
   {
     "n": 15,
@@ -193,7 +235,10 @@ window.CARE_QUIZ_QUESTIONS = [
     ],
     "key": 4,
     "topic": "安全・感染予防",
-    "explanation": "閉め切りではなく適切な換気を行います。"
+    "explanation": "閉め切りではなく適切な換気を行います。",
+    "sourcePage": 4,
+    "transcriptionReviewed": false,
+    "answerKeyStatus": "unofficial_unverified"
   },
   {
     "n": 16,
@@ -206,7 +251,10 @@ window.CARE_QUIZ_QUESTIONS = [
     ],
     "key": 2,
     "topic": "安全・感染予防",
-    "explanation": "湿潤環境は微生物が増殖しやすいため、清掃・乾燥が重要です。"
+    "explanation": "湿潤環境は微生物が増殖しやすいため、清掃・乾燥が重要です。",
+    "sourcePage": 4,
+    "transcriptionReviewed": false,
+    "answerKeyStatus": "unofficial_unverified"
   },
   {
     "n": 17,
@@ -219,7 +267,10 @@ window.CARE_QUIZ_QUESTIONS = [
     ],
     "key": 3,
     "topic": "安全・感染予防",
-    "explanation": "適切な消毒には対象に応じた方法、濃度、接触時間等が必要です。"
+    "explanation": "適切な消毒には対象に応じた方法、濃度、接触時間等が必要です。",
+    "sourcePage": 4,
+    "transcriptionReviewed": false,
+    "answerKeyStatus": "unofficial_unverified"
   },
   {
     "n": 18,
@@ -232,7 +283,10 @@ window.CARE_QUIZ_QUESTIONS = [
     ],
     "key": 3,
     "topic": "健康状態",
-    "explanation": "蒼白は発熱を直接示す典型的所見ではありません。全身状態を総合的に観察します。"
+    "explanation": "蒼白は発熱を直接示す典型的所見ではありません。全身状態を総合的に観察します。",
+    "sourcePage": 4,
+    "transcriptionReviewed": false,
+    "answerKeyStatus": "unofficial_unverified"
   },
   {
     "n": 19,
@@ -245,7 +299,10 @@ window.CARE_QUIZ_QUESTIONS = [
     ],
     "key": 1,
     "topic": "健康状態",
-    "explanation": "体温・脈拍・血圧などは代表的なバイタルサインです。"
+    "explanation": "体温・脈拍・血圧などは代表的なバイタルサインです。",
+    "sourcePage": 4,
+    "transcriptionReviewed": false,
+    "answerKeyStatus": "unofficial_unverified"
   },
   {
     "n": 20,
@@ -258,7 +315,10 @@ window.CARE_QUIZ_QUESTIONS = [
     ],
     "key": 1,
     "topic": "健康状態",
-    "explanation": "酸素飽和度にはパルスオキシメーター等を用います。"
+    "explanation": "酸素飽和度にはパルスオキシメーター等を用います。",
+    "sourcePage": 5,
+    "transcriptionReviewed": false,
+    "answerKeyStatus": "unofficial_unverified"
   },
   {
     "n": 21,
@@ -269,9 +329,12 @@ window.CARE_QUIZ_QUESTIONS = [
       "①咽頭・②喉頭・③気管・④食道",
       "①喉頭・②咽頭・③気管・④食道"
     ],
-    "key": 4,
+    "key": 2,
     "topic": "喀痰吸引",
-    "explanation": "設問図は原本の配置関係に基づいて簡略化した模式図です。"
+    "explanation": "問21の原本図を確認してください。参考解答は図中の番号と解剖学的配置から推定したもので、公式解答ではありません。",
+    "sourcePage": 5,
+    "transcriptionReviewed": false,
+    "answerKeyStatus": "unofficial_unverified"
   },
   {
     "n": 22,
@@ -284,7 +347,10 @@ window.CARE_QUIZ_QUESTIONS = [
     ],
     "key": 1,
     "topic": "喀痰吸引",
-    "explanation": "酸素需要が増したときには呼吸回数が増加することがあります。"
+    "explanation": "酸素需要が増したときには呼吸回数が増加することがあります。",
+    "sourcePage": 5,
+    "transcriptionReviewed": false,
+    "answerKeyStatus": "unofficial_unverified"
   },
   {
     "n": 23,
@@ -297,7 +363,10 @@ window.CARE_QUIZ_QUESTIONS = [
     ],
     "key": 3,
     "topic": "喀痰吸引",
-    "explanation": "吸引できる範囲や条件は、研修修了・認定・医師の指示等の制度に従います。"
+    "explanation": "吸引できる範囲や条件は、研修修了・認定・医師の指示等の制度に従います。",
+    "sourcePage": 6,
+    "transcriptionReviewed": false,
+    "answerKeyStatus": "unofficial_unverified"
   },
   {
     "n": 24,
@@ -310,7 +379,10 @@ window.CARE_QUIZ_QUESTIONS = [
     ],
     "key": 4,
     "topic": "喀痰吸引",
-    "explanation": "指示・注意事項は初回だけでなく、その都度必要な確認を行います。"
+    "explanation": "指示・注意事項は初回だけでなく、その都度必要な確認を行います。",
+    "sourcePage": 6,
+    "transcriptionReviewed": false,
+    "answerKeyStatus": "unofficial_unverified"
   },
   {
     "n": 25,
@@ -323,6 +395,9 @@ window.CARE_QUIZ_QUESTIONS = [
     ],
     "key": 2,
     "topic": "喀痰吸引",
-    "explanation": "呼吸音の変化、頻回の咳、酸素飽和度の低下などは貯留の手がかりになります。"
+    "explanation": "呼吸音の変化、頻回の咳、酸素飽和度の低下などは貯留の手がかりになります。",
+    "sourcePage": 6,
+    "transcriptionReviewed": false,
+    "answerKeyStatus": "unofficial_unverified"
   }
 ];
