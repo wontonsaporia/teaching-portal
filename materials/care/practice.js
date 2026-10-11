@@ -14,7 +14,7 @@ const freshChoiceOrders=()=>Object.fromEntries(Q.map(q=>[q.n,randomize([1,2,3,4]
 const displayOrder=n=>choiceMode==='shuffled'&&validPermutation(choiceOrders[n])?choiceOrders[n]:[1,2,3,4];
 const displayNumber=(n,sourceValue)=>displayOrder(n).indexOf(sourceValue)+1;
 try{let o=JSON.parse(localStorage.getItem(prefix)||'{}');if(Array.isArray(o.order)&&o.order.length&&o.order.every(n=>all.includes(n))&&new Set(o.order).size===o.order.length)order=o.order;if(o.answers&&typeof o.answers==='object')answers=Object.fromEntries(Object.entries(o.answers).filter(([k,v])=>all.includes(Number(k))&&Number.isInteger(v)&&v>=1&&v<=4));if(o.first&&typeof o.first==='object')first=o.first;if(o.choiceMode==='shuffled')choiceMode='shuffled';if(o.choiceOrders&&typeof o.choiceOrders==='object')for(const [n,a] of Object.entries(o.choiceOrders)){if(validPermutation(a))choiceOrders[n]=a;}index=Math.max(0,Math.min(order.length-1,Number(o.index)||0));elapsed=Number(o.elapsed)||0;completed=!!o.completed;}catch(e){}
-const save=()=>localStorage.setItem(prefix,JSON.stringify({order,answers,first,index,elapsed:elapsed+(Date.now()-start)/1000,completed,choiceMode,choiceOrders}));
+const save=()=>localStorage.setItem(prefix,JSON.stringify({order,answers,first,index,elapsed:elapsed+(Date.now()-start)/1000,completed,choiceMode,choiceOrders,savedAt:Date.now()}));
 const point=()=>{elapsed+=(Date.now()-start)/1000;start=Date.now()};
 const current=()=>byNum(order[index]);
 const answered=n=>Number.isInteger(answers[n]);
