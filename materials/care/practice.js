@@ -11,12 +11,13 @@ const scoreEligible=n=>!BANK||BANK.scoreEligible(byNum(n));
 const historyKey='care-quiz-history-v1';
 function record(n,choice){const q=byNum(n);if(!q||!scoreEligible(n))return;try{const h=JSON.parse(localStorage.getItem(historyKey)||'[]');h.push({questionId:q.id||String(n),examId:q.examId||'suction-2018-okinawa',number:n,unitId:q.unitId||q.topic,mode:test?'test':'drill',choice,correct:choice===q.key,keyStatus:q.answerVerification||'unofficial',at:new Date().toISOString(),firstAttempt:!h.some(x=>x.questionId===(q.id||String(n)))});localStorage.setItem(historyKey,JSON.stringify(h.slice(-10000)))}catch(e){}}
 const correct=n=>scoreEligible(n)&&answered(n)&&answers[n]===byNum(n).key;
+const scoreable=()=>order.filter(scoreEligible);
 const page=n=>byNum(n).sourcePage||Math.min(11,Math.ceil(n/5));
 const marker=n=>byNum(n).transcriptionReviewed?'転記確認済み':'原文の逐字照合待ち';
 function elements(tag,txt,cls){const e=document.createElement(tag);if(txt!=null)e.textContent=txt;if(cls)e.className=cls;return e}
 function fill(el,...children){el.replaceChildren(...children)}
 function go(i){index=Math.max(0,Math.min(order.length-1,i));save();render();window.scrollTo({top:0,behavior:'smooth'})}
-function nav(){const box=$('navigator');box.replaceChildren();order.forEach((n,i)=>{const b=elements('button',n);b.type='button';b.className=(i===index?'active ':'')+(answered(n)?(correct(n)?'done':'miss'):'');b.title='問'+n;b.onclick=()=>{if(test&&completed)return;go(i)};box.append(b)})}
+function nav(){const box=$('navigator');box.replaceChildren();order.forEach((n,i)=>{const b=elements('button',n);b.type='button';b.className=(i===index?'active ':'')+(!scoreEligible(n)?'skipped':test?(answered(n)?'attempted':''):(answered(n)?(correct(n)?'done':'miss'):''));b.title='問'+n;b.onclick=()=>{if(test&&completed)return;go(i)};box.append(b)})}
 function feedback(q){
  const box=$('feedback');box.replaceChildren();box.hidden=true;
  if(test||!answered(q.n)||!scoreEligible(q.n))return;
@@ -27,19 +28,19 @@ function feedback(q){
 }
 function render(){
  $('screen').hidden=false;$('report').hidden=true;
- const q=current();$('progress').style.width=(order.filter(answered).length/order.length*100)+'%';
- $('position').textContent='問 '+q.n+' / '+(test?'50':order.length);
- $('counter').textContent=order.filter(answered).length+' / '+order.length+'問 回答済み';
+ const q=current(),eligible=scoreable();$('progress').style.width=(eligible.filter(answered).length/Math.max(eligible.length,1)*100)+'%';
+ $('position').textContent='原本 問'+q.n+'（'+(index+1)+' / '+order.length+'）';
+ $('counter').textContent=eligible.filter(answered).length+' / '+eligible.length+'問 回答済み（採点対象）';
  $('category').textContent=q.topic;$('question').textContent=q.stem;
  $('source-page').textContent='原本 p.'+page(q.n)+' · 原文逐字照合待ち · 参考解答未検証';
  const diagram=$('diagram');diagram.hidden=q.n!==21;
- if(q.n===21)diagram.textContent='図版の原本照合が未完了です。この設問は正誤判定と成績から除外します。原本PDFの5ページを参照してください。';
+ if(q.n===21)diagram.textContent='原本の人体図が未整備のため、この問題の回答を一時停止しています。模擬テストでは採点対象49問の成績を集計します。原本PDFの5ページと照合して図版を制作する予定です。';
  const box=$('options');box.replaceChildren();
  q.options.forEach((v,i)=>{const value=i+1,b=elements('button',null,'choice');b.type='button';b.append(elements('span',String(value),'number'),elements('span',v));const selected=answers[q.n]===value;
- if(selected)b.classList.add('selected');if(!test&&answered(q.n)){b.disabled=true;if(value===q.key)b.classList.add('right');if(selected&&!correct(q.n))b.classList.add('wrong')}
+ if(selected)b.classList.add('selected');if(!scoreEligible(q.n)){b.disabled=true;}else if(!test&&answered(q.n)){b.disabled=true;if(value===q.key)b.classList.add('right');if(selected&&!correct(q.n))b.classList.add('wrong')}
  else if(test&&completed)b.disabled=true;
  b.setAttribute('aria-pressed',String(selected));
- b.onclick=()=>{if(!test&&answered(q.n))return; const wasAnswered=answered(q.n);if(test){answers[q.n]=value;}else{answers[q.n]=value;if(!(q.n in first))first[q.n]=value;if(!wasAnswered)record(q.n,value);}save();render();if(!test)$('feedback').scrollIntoView({block:'nearest',behavior:'smooth'})};
+ b.onclick=()=>{if(!scoreEligible(q.n)||(!test&&answered(q.n)))return; const wasAnswered=answered(q.n);if(test){answers[q.n]=value;}else{answers[q.n]=value;if(!(q.n in first))first[q.n]=value;if(!wasAnswered)record(q.n,value);}save();render();if(!test)$('feedback').scrollIntoView({block:'nearest',behavior:'smooth'})};
  box.append(b)});
  feedback(q);$('prev').disabled=index===0;
  $('next').textContent=index===order.length-1?(test?'提出して結果を見る':'練習結果を見る'):'次の問題へ';
@@ -55,8 +56,8 @@ function report(){
  $('metrics').replaceChildren();
  [['正答率',pct(right.length,set.length)+'%'],['回答済み',done.length+'問'],['所要時間',Math.max(1,Math.round(elapsed/60))+'分']].forEach(([name,value])=>{const card=elements('div',null,'metric');card.append(elements('strong',value),elements('span',name));$('metrics').append(card)});
  $('weak').replaceChildren();
- const categories=[...new Set(set.map(q=>q.topic))];
- categories.forEach(category=>{const items=set.filter(q=>q.topic===category),correctCount=items.filter(q=>correct(q.n)).length,row=elements('div',null,'barrow'),bar=elements('div',null,'bar'),val=elements('div');val.style.width=pct(correctCount,items.length)+'%';bar.append(val);row.append(elements('span',category),elements('span',pct(correctCount,items.length)+'%'),bar);$('weak').append(row)});
+ const units=BANK?BANK.units.map(u=>({id:u.id,title:u.title})):([...new Set(set.map(q=>q.topic))].map(t=>({id:t,title:t})));
+ units.forEach(unit=>{const items=set.filter(q=>BANK?q.unitId===unit.id:q.topic===unit.id),correctCount=items.filter(q=>correct(q.n)).length,row=elements('div',null,'barrow'),bar=elements('div',null,'bar'),val=elements('div');val.style.width=pct(correctCount,items.length)+'%';bar.append(val);row.append(elements('span',unit.title),elements('span',correctCount+'/'+items.length+'問（'+pct(correctCount,items.length)+'%）'),bar);$('weak').append(row)});
  $('wrong-list').replaceChildren();
  [...wrong,...pending].forEach(q=>{const b=elements('button','問'+q.n+(answered(q.n)?'（不正解）':'（未回答）'));b.onclick=()=>{if(test){$('review-dialog').hidden=false;const text=q.options.map((v,i)=>(i+1)+'）'+v).join('\n');$('review-dialog').textContent='問'+q.n+'\n'+q.stem+'\n'+text+'\nあなたの回答：'+(answers[q.n]??'未回答')+'\n参考解答：'+q.key+'\n'+(q.explanation||'') }else go(order.indexOf(q.n))};$('wrong-list').append(b)});
  if(!wrong.length&&!pending.length)$('wrong-list').append(elements('p','すべて正解です。','muted'));
