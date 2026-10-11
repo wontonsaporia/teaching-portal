@@ -68,6 +68,7 @@ async function remove(){
  }catch(e){alert('削除できませんでした。')}
 }
 function mount(){
+ if(window.TeachingMode?.guest)return;
  const target=document.querySelector('.side')||document.querySelector('.profile-slot')||document.querySelector('.hero')||document.querySelector('main');
  if(!target)return;
  const box=document.createElement('section');box.className='profile-manager';box.setAttribute('aria-label','学習プロフィール');
