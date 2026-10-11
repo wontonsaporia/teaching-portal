@@ -11,3 +11,46 @@
 .app-footer{border-top:1px solid var(--line);font-size:11px;color:#728075;padding:15px 24px;text-align:center}.app-footer a{color:#276044}
 .app-settings{margin:10px clamp(16px,4vw,45px);padding:12px 18px;border:1px solid var(--line);border-radius:7px;background:#fff;font-size:13px}.app-settings summary{cursor:pointer;font-weight:700}.app-settings .profile-manager{border:0;margin:0;padding:10px 0}.app-settings .profile-manager p{font-size:12px}
 @media(max-width:680px){.app-header{align-items:flex-start;flex-direction:column}.app-account{width:100%;justify-content:space-between}.app-nav button{padding:8px 11px}}
+
+
+/* Compact application chrome — navigation lives alongside the page, not above it. */
+.app-shell{position:relative;padding-left:90px}
+.app-header{position:relative;z-index:20;min-height:70px}
+.app-identity{text-decoration:none;color:inherit}
+.app-identity:hover{color:#184b37}
+.app-identity:focus-visible,.app-nav button:focus-visible,.account-menu summary:focus-visible{outline:3px solid #c99a45;outline-offset:3px}
+.app-nav{position:fixed;top:0;left:0;bottom:0;width:90px;z-index:25;display:flex;flex-direction:column;align-items:stretch;gap:8px;background:#fff;padding:84px 7px 14px;border-right:1px solid var(--line);border-bottom:0;overflow-y:auto}
+.app-nav button{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-size:23px;line-height:1.1;padding:12px 3px;min-height:72px;border-radius:9px}
+.app-nav button span{font-size:11px;line-height:1.4}
+.app-nav button.current{background:#e5f0e8;color:#1a6244}
+.app-account{margin-left:auto;gap:17px}
+.account-menu{position:relative}
+.account-menu>summary{display:flex;align-items:center;gap:10px;list-style:none;cursor:pointer;border:1px solid #d4ded6;border-radius:8px;background:white;padding:7px 10px;font-size:12px;font-weight:700;color:#275940}
+.account-menu>summary::-webkit-details-marker{display:none}
+.account-avatar{display:inline-grid;place-items:center;width:28px;height:28px;border-radius:50%;background:#e4eee7;color:#276349;font-size:20px;line-height:1}
+.account-popover{position:absolute;right:0;top:calc(100% + 8px);width:min(390px,calc(100vw - 32px));max-height:min(75vh,620px);overflow-y:auto;border:1px solid #d7e1d8;background:white;border-radius:12px;box-shadow:0 16px 45px #102d201e;padding:18px;z-index:100}
+.account-menu-title{font-size:13px;font-weight:750;margin:0 0 15px}
+.account-popover .profile-manager{margin:0 0 12px;padding-bottom:14px}
+.account-popover .profile-slot p{font-size:11px;color:#677a6e}
+.account-popover #app-lock,.account-popover .profile-slot>button{width:100%;text-align:center;padding:10px;border:1px solid #becdc2;background:white;color:#275940;border-radius:7px;font-size:12px;font-weight:700;cursor:pointer;margin-top:10px}
+.account-popover #app-lock:hover{background:#f0f4f0}
+.account-popover #app-lock:disabled{opacity:.45;cursor:wait}
+.account-popover .backup-actions{gap:8px}
+.app-settings{display:none}
+#learning-view{min-height:calc(100vh - 130px)}
+@media(max-width:680px){
+ .app-shell{padding-left:0;padding-bottom:64px}
+ .app-header{flex-direction:row;align-items:center;gap:8px;padding:10px 14px;min-height:68px}
+ .app-identity{gap:6px}
+ .app-identity-text strong{font-size:10px;letter-spacing:0}
+ .app-identity-text small{display:none}
+ #app-save-state{display:none}
+ .app-account{width:auto;justify-content:flex-end}
+ .account-menu>summary{padding:5px}
+ #app-mode-label{font-size:11px;max-width:110px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+ .app-nav{top:auto;bottom:0;left:0;right:0;width:100%;height:64px;flex-direction:row;align-items:stretch;justify-content:space-around;gap:0;padding:5px max(5px,env(safe-area-inset-right)) max(5px,env(safe-area-inset-bottom));border-right:0;border-top:1px solid var(--line);overflow:visible}
+ .app-nav button{flex:1;min-height:0;font-size:21px;padding:4px}
+ .app-nav button span{font-size:10px}
+ .account-popover{right:0;top:calc(100% + 9px)}
+ #learning-view{min-height:calc(100vh - 160px)}
+}
