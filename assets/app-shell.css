@@ -54,3 +54,16 @@
  .account-popover{right:0;top:calc(100% + 9px)}
  #learning-view{min-height:calc(100vh - 160px)}
 }
+
+/* Desktop compact rail expands on hover and keyboard focus. */
+@media(min-width:681px){
+ .app-shell{padding-left:62px}
+ .app-nav{width:62px;gap:6px;padding:84px 6px 16px;overflow-x:hidden;transition:width .16s ease;box-shadow:none}
+ .app-nav button{min-height:54px;flex-direction:row;justify-content:flex-start;gap:14px;padding:10px 13px;font-size:14px}
+ .app-nav-icon{display:inline-grid;place-items:center;flex:0 0 24px;font-size:24px;line-height:1}
+ .app-nav-label{font-size:13px!important;white-space:nowrap;opacity:0;max-width:0;overflow:hidden}
+ .app-nav:hover,.app-nav:focus-within{width:190px;box-shadow:10px 0 22px #102e2010}
+ .app-nav:hover .app-nav-label,.app-nav:focus-within .app-nav-label{opacity:1;max-width:110px}
+}
+@media(max-width:680px){.app-nav-icon{font-size:22px}.app-nav-label{font-size:10px!important;line-height:1.4}}
+@media(prefers-reduced-motion:reduce){.app-nav{transition:none}}
