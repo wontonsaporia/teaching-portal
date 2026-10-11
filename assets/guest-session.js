@@ -7,7 +7,7 @@
 'use strict';
 const PREFIX='teaching-portal-guest-v2:';
 const MODE_KEY=PREFIX+'mode';
-const ALLOWED=['care-2018-drill-v2','care-2018-exam-v2','care-quiz-history-v1',
+const ALLOWED=['care-national-medical-2024-2026-v1','care-2018-drill-v2','care-2018-exam-v2','care-quiz-history-v1',
  ...['human','healthcare','safety','infection','observation','suction-general','suction-practice','feeding-general','feeding-practice']
  .map(id=>'care-2018-drill-v2--'+id)];
 function store(){if(!root.sessionStorage)throw Error('Session storage unavailable');return root.sessionStorage}
