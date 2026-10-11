@@ -6,11 +6,11 @@
   <title>教材一覧 | Teaching Portal v2</title>
   <link rel="stylesheet" href="assets/style.css">
   <script src="assets/materials.js" defer></script>
-  <script src="assets/portal.js" defer></script>
+  <script src="assets/portal.js" defer></script><script src="assets/guest-session.js" defer></script><script src="assets/home-mode.js" defer></script>
 <link rel="manifest" href="manifest.webmanifest"><meta name="theme-color" content="#245d43"><link rel="icon" type="image/svg+xml" href="assets/app-icon.svg"></head>
 <body><nav class="wrap" style="padding-top:14px"><a href="index.html">← START画面</a></nav>
   <header><div class="wrap"><p class="eyebrow">TEACHING PORTAL</p><h1>学びにつながる、教材を。</h1><p class="intro">授業で使う解説、練習問題、学習ツールをひとつの場所に。</p></div></header>
-  <main class="wrap">
+  <main class="wrap"><section id="session-info" aria-live="polite"></section>
     <section aria-labelledby="catalog-title">
       <div class="heading"><h2 id="catalog-title">教材一覧</h2><p id="count" role="status" aria-live="polite"></p></div>
       <div class="filters">
