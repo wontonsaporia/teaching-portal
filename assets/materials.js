@@ -36,7 +36,7 @@ window.TEACHING_MATERIALS = [
     path: 'materials/math/integer-equations.html', action: '教材を開く', external: false
   },
   {
-    id: 'english-eiken4', subject: 'english', subjectLabel: '英語', grade: '英検4級', format: '外部リポジトリ',
+    id: 'english-eiken4', hidden: true, subject: 'english', subjectLabel: '英語', grade: '英検4級', format: '外部リポジトリ',
     title: '英検4級 語彙教材',
     description: '既存の教材プロジェクトへの入口。現在はGitHubのリポジトリを開きます。',
     tags: ['英検', '4級', '語彙', '単語'],
