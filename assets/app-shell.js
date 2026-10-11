@@ -78,6 +78,23 @@ async function saveChild(){
   if(child&&child!==window&&typeof child.TeachingSaveProgress==='function')await child.TeachingSaveProgress();
  }catch(e){throw e}
 }
+/* Call before changing profiles or removing a profile. Detaching waits for pagehide
+ * writes to settle so a removed profile cannot be recreated by its old iframe. */
+window.TeachingAppShell.saveForProfileAction=async(detach=false)=>{
+ if(locked||transitioning)throw Error('画面の移動または保存処理中です');
+ transitioning=true;
+ try{
+  await saveChild();
+  await vault.flush();
+  if(detach){
+   const wait=new Promise(resolve=>frame.addEventListener('load',resolve,{once:true}));
+   frame.src='about:blank';
+   await wait;
+   await vault.flush();
+  }
+ }finally{transitioning=false}
+};
+
 function updateSaveStatus(){
  const node=$('app-save-state');
  if(!node)return;
@@ -108,7 +125,24 @@ window.addEventListener('popstate',()=>{const requested=new URLSearchParams(loca
   if(isGuest){
    const slot=$('app-backup-slot');
    const note=document.createElement('p');note.textContent='ゲストの学習記録はこのタブ内で一時保存されます。';slot.append(note);
-   const clear=document.createElement('button');clear.type='button';clear.textContent='ゲスト履歴を消去';clear.onclick=()=>{if(!confirm('このタブのゲスト学習記録を消去しますか？'))return;guest.clear();guest.enter();go('home.html');$('account-menu').open=false};slot.append(clear);
+   const clear=document.createElement('button');clear.type='button';clear.textContent='ゲスト履歴を消去';
+   clear.onclick=async()=>{
+    if(locked||transitioning||!confirm('このタブのゲスト学習記録を消去しますか？'))return;
+    transitioning=true;clear.disabled=true;
+    try{
+     // Unload first: the old practice page may save on pagehide.
+     const wait=new Promise(resolve=>frame.addEventListener('load',resolve,{once:true}));
+     frame.src='about:blank';await wait;
+     guest.clear();guest.enter();
+     const next='home.html';
+     window.history.replaceState({page:next},'',new URL('app.html?page='+encodeURIComponent(next),base));
+     frame.src=new URL(next,base).href;
+     mark(next);status.textContent='';
+     $('account-menu').open=false;
+    }catch(e){status.textContent='ゲスト履歴を消去できませんでした。';}
+    finally{clear.disabled=false;transitioning=false}
+   };
+   slot.append(clear);
   }
   frame.hidden=false;
   updateSaveStatus();
