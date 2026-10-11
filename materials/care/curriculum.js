@@ -36,7 +36,7 @@ const questions=raw.map(item=>{
   source:{label:"平成30年度後期 第1回筆記試験",page:item.sourcePage||Math.min(11,Math.ceil(item.n/5)),number:item.n},
   sourceVerification:"pending", // 過去の「照合済み」記載に監査記録がないため保守的に未完了とする
   answerVerification:"provisional",
-  requiresFigure,figureStatus:requiresFigure?"pending":"not_required",
+  requiresFigure,figureStatus:requiresFigure?"supplied_original":"not_required",
   regulatoryReview: [3,7,8,9,12,14,17,21,23,24,27,28,30,32,35,39,40,44,46,47].includes(item.n)?"required":"not_assessed"
  };
 });
@@ -45,11 +45,11 @@ window.CARE_BANK={
  units:unitDefinitions,policySources,questions,
  reviewDate:"2026-10-11", reviewState:"partial",
  getUnit:id=>unitDefinitions.find(u=>u.id===id),
- scoreEligible:q=>!q.requiresFigure || q.figureStatus==="verified",
+ scoreEligible:q=>!q.requiresFigure || (q.figureStatus==="supplied_original" && typeof window.CARE_Q21_IMAGE==="string" && window.CARE_Q21_IMAGE.length>8000),
  metadata:{
   text:"元の問題文は変更せずに保管し、逐字照合が終わってからsourceVerificationをverifiedに変更する。",
   answers:"公式解答表がないため、すべての正答を暫定と扱う。最新の法令・実施基準と当時の出題意図を区別する。",
-  images:"問21は図の再制作・原本照合が完了するまで採点対象外とする。",
+  images:"問21はユーザー提供の原本図を軽量化して掲載。画像データを読み込めない場合のみ採点対象外。",
   version:"bank-schema-1"
  }
 };
