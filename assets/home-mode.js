@@ -25,7 +25,7 @@ function link(path){return path}
 function resumeOptions(){
  const definitions=[
   {base:'care-2018-drill-v2',kind:'練習ドリル',target:'materials/care/suction-2018-quiz.html'},
-  {base:'care-2018-exam-v2',kind:'模擬テスト',target:'materials/care/suction-2018-test.html'},
+  // Unsubmitted exams must never be selected as the automatic resume target.
   ...units.map(unit=>({
    base:'care-2018-drill-v2--'+unit.id,
    kind:unit.short+' の単元別ドリル',
@@ -117,7 +117,7 @@ function render(){
  if(selected){
   $('resume-meta').textContent=`${selected.answered} / ${selected.total} 問 回答済み`;
   $('resume-title').textContent=selected.kind+'を再開';
-  $('resume-description').textContent='保存された回答から続けられます。別の教材は下の一覧から選択できます。';
+  $('resume-description').textContent='保存された回答から続けられます。別の教材は「教材一覧」から選択できます。';
   anchor.href=link(selected.target);anchor.firstChild.textContent='続きから学習する ';
  }else{
   $('resume-meta').textContent=local?'未完了の学習セッションはありません':'解錠後に続きの教材を表示';
