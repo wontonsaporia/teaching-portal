@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>喀痰吸引等研修 50問クイズ | Teaching Portal</title>
+<title>喀痰吸引等研修 50問ドリル | Teaching Portal</title>
 <style>
 :root{font-family:system-ui,-apple-system,"Yu Gothic",sans-serif;color:#223a2e;background:#f6f7f2;font-synthesis:none}
 *{box-sizing:border-box}body{margin:0;line-height:1.75}button{font:inherit;cursor:pointer}button:focus-visible,input:focus-visible{outline:3px solid #d8a13e;outline-offset:3px}
@@ -12,9 +12,15 @@ main{padding:22px 0 75px}.panel{background:white;border:1px solid #dce3dc;border
 .progress{height:9px;background:#e1e9e2;border-radius:99px;overflow:hidden;margin:15px 0}.progress>div{height:100%;background:#245d43;transition:width .2s}
 h2{font-size:clamp(18px,4vw,23px);margin:18px 0 23px;white-space:pre-wrap;line-height:1.8}
 .choices{display:grid;gap:12px}.choice{display:flex;gap:14px;align-items:flex-start;width:100%;padding:15px;text-align:left;background:#fff;border:1.5px solid #cbd8cd;border-radius:10px;line-height:1.7;color:inherit}
-.choice .num{font-weight:800;min-width:26px;color:#52705c}.choice:hover{background:#f3f8f3}.choice.selected{background:#e9f2eb;border-color:#245d43;box-shadow:inset 0 0 0 1px #245d43}
+.choice .num{font-weight:800;min-width:26px;color:#52705c}.choice:hover{background:#f3f8f3}.choice.selected{box-shadow:inset 0 0 0 1px currentColor}
+.choice.correct{background:#e3f3e7;border-color:#277a46;color:#17582f}.choice.incorrect{background:#fff0ec;border-color:#b94c40;color:#923428}
+.choice:disabled{cursor:default}.choice:disabled:hover{background:#fff}.choice.correct:disabled:hover{background:#e3f3e7}.choice.incorrect:disabled:hover{background:#fff0ec}
+.feedback{margin:21px 0 8px;border-radius:12px;border:1px solid #cbd8cd;padding:16px 18px;background:#f7faf7}
+.feedback.right{background:#edf7ef;border-color:#9ccea9}.feedback.wrong{background:#fff5f1;border-color:#e9b4a5}
+.feedback h3{margin:0 0 8px;font-size:19px}.feedback p{margin:7px 0 0}.feedback .reference{font-weight:700}
+.feedback[hidden]{display:none}
 .btn{border:1px solid #245d43;border-radius:9px;background:#245d43;color:white;padding:11px 19px;min-height:44px}.btn.secondary{background:white;color:#245d43}.btn:disabled{opacity:.4;cursor:not-allowed}
-nav{margin-top:24px}.jump{display:flex;flex-wrap:wrap;gap:6px;margin-top:16px}.jump button{width:38px;height:38px;border:1px solid #cbd8cd;background:white;border-radius:7px;color:#274734;font-size:13px}.jump button.current{outline:2px solid #245d43}.jump button.done{background:#dfeddf}
+nav{margin-top:24px}.jump{display:flex;flex-wrap:wrap;gap:6px;margin-top:16px}.jump button{width:38px;height:38px;border:1px solid #cbd8cd;background:white;border-radius:7px;color:#274734;font-size:13px}.jump button.current{outline:2px solid #245d43}.jump button.done{background:#dfeddf}.jump button.missed{background:#f9e4df;color:#873c2f}
 .muted{color:#627168;font-size:14px}.notice{border-left:3px solid #aa7d37;padding:10px 14px;background:#fff9eb;margin-top:14px;font-size:14px}
 .answer{border-top:1px solid #ddd;margin-top:20px;padding-top:18px}.good{color:#1e6842}.bad{color:#a13e2b}
 #result[hidden],#quiz[hidden]{display:none}.score{font-weight:800;font-size:34px}.review{border-bottom:1px solid #e0e6e0;padding:10px 0}.review a{color:#245d43}
@@ -23,55 +29,137 @@ select{border:1px solid #ccd8cc;border-radius:8px;padding:8px;background:white;c
 @media(max-width:540px){.nav .btn{flex:1}.toolbar{align-items:flex-start}.panel{padding:18px}.jump button{width:34px;height:34px}}
 @media print{header,.nav,.jump,.toolbar select,.btn{display:none!important}.panel{border:0;padding:5px}body{background:white}}
 </style></head><body>
-<header><div class="wrap"><a href="../../index.html">← Teaching Portal / 教材一覧</a><h1>喀痰吸引等研修・筆記試験クイズ</h1><p class="lead">平成30年度後期｜不特定多数の者｜第1回筆記試験（全50問）</p></div></header>
+<header><div class="wrap"><a href="../../index.html">← Teaching Portal / 教材一覧</a><h1>喀痰吸引等研修・一問一答ドリル</h1><p class="lead">平成30年度後期｜不特定多数の者｜第1回筆記試験（全50問）</p></div></header>
 <main class="wrap"><section class="panel" id="quiz">
 <div class="toolbar"><span class="pill" id="topic"></span><span id="position"></span><label class="muted">出題順 <select id="mode"><option value="ordered">原本順</option><option value="random">ランダム</option></select></label></div>
-<div class="progress" aria-label="回答進捗"><div id="progress"></div></div><p class="muted" id="answered"></p>
+<div class="progress" aria-label="回答進捗"><div id="progress"></div></div><p class="muted" id="answered"></p><p class="muted">選択肢をタップすると、すぐに正誤と解説を表示します。</p>
 <h2 id="stem"></h2><div id="illustration"></div>
-<div class="choices" id="choices" role="group" aria-label="解答を選択"></div>
-<div class="nav"><button type="button" class="btn secondary" id="prev">前の問題</button><button type="button" class="btn secondary" id="next">次の問題</button><button type="button" class="btn" id="finish">採点する</button></div>
+<div class="choices" id="choices" role="group" aria-label="解答を選択"></div><div id="feedback" class="feedback" role="status" aria-live="polite" hidden></div>
+<div class="nav"><button type="button" class="btn secondary" id="prev">前の問題</button><button type="button" class="btn" id="next">次の問題へ →</button><button type="button" class="btn secondary" id="finish">学習結果を見る</button></div>
 <details><summary>問題一覧（解答済みの確認・ジャンプ）</summary><div id="jump" class="jump"></div></details>
 <div class="notice">原本のスキャン画像から転記・再構成した学習用ページです。正答表は付属していないため、採点は<strong>非公式の参考解答</strong>に基づきます。医療行為の手順をこのページだけで判断せず、現行の法令・研修資料・医師の指示に従ってください。画像に細かな文字がある設問は原本との照合が必要です。</div>
 </section>
-<section class="panel" id="result" hidden><h2>採点結果</h2><div class="score" id="score"></div><p id="breakdown"></p><p class="notice">この得点は非公式の参考解答によるものです。正式な試験の判定ではありません。</p>
-<button class="btn secondary" id="resume">解答を見直す</button> <button class="btn" id="retry">最初から解き直す</button>
+<section class="panel" id="result" hidden><h2>今回の練習結果</h2><div class="score" id="score"></div><p id="breakdown"></p><p class="notice">この得点は非公式の参考解答によるものです。正式な試験の判定ではありません。</p>
+<button class="btn secondary" id="resume">問題に戻る</button> <button class="btn" id="retryWrong">間違えた問題だけ再挑戦</button> <button class="btn secondary" id="retry">全50問を解き直す</button>
 <h3>復習一覧</h3><div id="review"></div></section>
 <p class="foot">作問元：平成30年度後期 喀痰吸引等実施のための研修事業（不特定多数の者）1回目筆記試験。非公式の教材化であり、主催者による監修・承認はありません。</p></main>
 <script src="suction-2018-questions-1.js"></script><script src="suction-2018-questions-2.js"></script>
 <script>
 (()=>{
-const questions=window.CARE_QUIZ_QUESTIONS, letters=['1','2','3','4'];
+const questions=window.CARE_QUIZ_QUESTIONS;
 const $=id=>document.getElementById(id);
-const key='teaching-portal-care-suction-2018-v1';
-let answers={},order=questions.map(q=>q.n),index=0,graded=false;
-try{const saved=JSON.parse(localStorage.getItem(key)||'{}');if(saved.answers&&typeof saved.answers==='object')answers=saved.answers;if(Array.isArray(saved.order)&&saved.order.length===50&&new Set(saved.order).size===50)order=saved.order;if(Number.isInteger(saved.index))index=Math.max(0,Math.min(49,saved.index));if(saved.mode)$('mode').value=saved.mode;}catch(e){}
-const save=()=>{try{localStorage.setItem(key,JSON.stringify({answers,order,index,mode:$('mode').value}));}catch(e){}};
-const current=()=>questions[order[index]-1];
+const storageKey='teaching-portal-care-suction-2018-v1';
+const allNumbers=questions.map(q=>q.n);
+let answers={}, order=[...allNumbers],index=0;
+const isValidOrder=items=>Array.isArray(items)&&items.length>0&&items.length<=allNumbers.length&&new Set(items).size===items.length&&items.every(n=>Number.isInteger(n)&&allNumbers.includes(n));
+try{
+ const saved=JSON.parse(localStorage.getItem(storageKey)||'{}');
+ if(saved.answers&&typeof saved.answers==='object'){
+  for(const q of questions){if([1,2,3,4].includes(saved.answers[q.n]))answers[q.n]=saved.answers[q.n];}
+ }
+ if(isValidOrder(saved.order))order=saved.order;
+ if(Number.isInteger(saved.index))index=Math.max(0,Math.min(order.length-1,saved.index));
+ if(['ordered','random'].includes(saved.mode))$('mode').value=saved.mode;
+}catch(e){}
+const save=()=>{try{localStorage.setItem(storageKey,JSON.stringify({answers,order,index,mode:$('mode').value}));}catch(e){}};
+const current=()=>questions.find(q=>q.n===order[index]);
+const practiceQuestions=()=>order.map(n=>questions.find(q=>q.n===n));
+const scrollTop=()=>window.scrollTo({top:0,behavior:'smooth'});
 const diagram=()=>'<figure class="diagram"><svg viewBox="0 0 440 280" role="img" aria-label="喉と気道・食道の位置関係を簡略化した模式図"><path d="M155 24 C78 34 68 110 115 150 L156 178" fill="none" stroke="#697f73" stroke-width="12" stroke-linecap="round"/><path d="M159 27 Q275 32 253 112 L225 173" fill="none" stroke="#a8bbb1" stroke-width="30"/><path d="M210 118 Q265 140 265 257" fill="none" stroke="#8ab4aa" stroke-width="19"/><path d="M189 126 Q206 167 201 256" fill="none" stroke="#d8aa80" stroke-width="20"/><g font-family="sans-serif" font-size="18" fill="#245d43"><text x="103" y="105">①</text><text x="286" y="110">②</text><text x="163" y="267">③</text><text x="283" y="267">④</text></g><g stroke="#245d43" stroke-width="1.5"><path d="M122 103 L170 115"/><path d="M283 105 L235 116"/><path d="M183 251 L197 225"/><path d="M280 250 L263 222"/></g></svg><figcaption>模式図（原本の人体図とは異なります）。名称の確認には元のPDFも参照してください。</figcaption></figure>';
+function showFeedback(q,chosen){
+ const box=$('feedback');
+ if(chosen==null){box.hidden=true;box.replaceChildren();return;}
+ box.hidden=false;
+ const isRight=chosen===q.key;
+ box.className='feedback '+(isRight?'right':'wrong');
+ const heading=document.createElement('h3');
+ heading.textContent=isRight?'○ 正解です':'× 不正解です';
+ const answer=document.createElement('p');
+ answer.className='reference';
+ answer.textContent='参考解答：'+q.key+'） '+q.options[q.key-1];
+ const explanation=document.createElement('p');
+ explanation.textContent=q.explanation||'原本や研修資料と照合して復習してください。';
+ box.replaceChildren(heading,answer,explanation);
+}
 function render(){
- const q=current(),count=Object.keys(answers).filter(k=>answers[k]!=null).length;
- $('topic').textContent=q.topic;$('position').textContent='問題 '+q.n+' / 50';$('stem').textContent=q.stem;$('answered').textContent=count+' / 50問 回答済み';$('progress').style.width=(count/50*100)+'%';
+ const q=current(),chosen=answers[q.n],count=order.filter(n=>answers[n]!=null).length;
+ $('topic').textContent=q.topic;
+ $('position').textContent='第 '+(index+1)+' / '+order.length+' 問（原本 問'+q.n+'）';
+ $('stem').textContent=q.stem;
+ $('answered').textContent=count+' / '+order.length+'問 回答済み'+(order.length!==50?'・復習セット':'');
+ $('progress').style.width=count/order.length*100+'%';
  $('illustration').innerHTML=q.n===21?diagram():'';
  const box=$('choices');box.replaceChildren();
- q.options.forEach((v,i)=>{const b=document.createElement('button');b.type='button';b.className='choice'+(answers[q.n]===i+1?' selected':'');b.setAttribute('aria-pressed',String(answers[q.n]===i+1));const number=document.createElement('span');number.className='num';number.textContent=letters[i];const s=document.createElement('span');s.textContent=v;b.append(number,s);b.onclick=()=>{answers[q.n]=i+1;save();render()};box.append(b)});
- $('prev').disabled=index===0;$('next').disabled=index===49;
- $('finish').textContent=count===50?'採点する':'採点する（未回答 '+(50-count)+' 問）';
- const jump=$('jump');jump.replaceChildren();order.forEach((n,i)=>{const b=document.createElement('button');b.type='button';b.textContent=n;b.title='問題'+n;b.className=(answers[n]!=null?'done ':'')+(index===i?'current':'');b.onclick=()=>{index=i;save();render();scrollTo({top:0,behavior:'smooth'})};jump.append(b)});
+ q.options.forEach((v,i)=>{
+  const value=i+1,button=document.createElement('button');
+  button.type='button';
+  button.className='choice'+(chosen===value?' selected':'')+(chosen!=null&&value===q.key?' correct':'')+(chosen!=null&&chosen===value&&chosen!==q.key?' incorrect':'');
+  button.disabled=chosen!=null;
+  button.setAttribute('aria-pressed',String(chosen===value));
+  const number=document.createElement('span');number.className='num';number.textContent=value;
+  const label=document.createElement('span');label.textContent=v;
+  button.append(number,label);
+  button.onclick=()=>{
+   if(answers[q.n]!=null)return;
+   answers[q.n]=value;save();render();
+   $('feedback').scrollIntoView({block:'nearest',behavior:'smooth'});
+  };
+  box.append(button);
+ });
+ showFeedback(q,chosen);
+ $('prev').disabled=index===0;
+ $('next').textContent=index===order.length-1?'練習結果を見る →':'次の問題へ →';
+ $('finish').textContent='学習結果を見る';
+ const jump=$('jump');jump.replaceChildren();
+ order.forEach((n,i)=>{
+  const b=document.createElement('button');b.type='button';b.textContent=n;b.title='原本 問'+n;
+  b.className=(answers[n]!=null?'done ':'')+(answers[n]!=null&&answers[n]!==questions.find(q=>q.n===n).key?'missed ':'')+(index===i?'current':'');
+  b.onclick=()=>{index=i;save();render();scrollTop();};
+  jump.append(b);
+ });
 }
-$('prev').onclick=()=>{index=Math.max(0,index-1);save();render()};
-$('next').onclick=()=>{index=Math.min(49,index+1);save();render()};
-$('mode').onchange=()=>{if($('mode').value==='random'){order=questions.map(q=>q.n);for(let i=order.length-1;i>0;i--){let j=Math.floor(Math.random()*(i+1));[order[i],order[j]]=[order[j],order[i]]}}else order=questions.map(q=>q.n);index=0;save();render()};
 function result(){
- const done=questions.filter(q=>answers[q.n]!=null),right=questions.filter(q=>answers[q.n]===q.key);
- $('score').textContent=right.length+' / 50問 正解（'+Math.round(right.length/50*100)+'%）';
- $('breakdown').textContent=done.length+'問回答・'+(50-done.length)+'問未回答';
+ const set=practiceQuestions(),done=set.filter(q=>answers[q.n]!=null),right=done.filter(q=>answers[q.n]===q.key);
+ const mistakes=done.filter(q=>answers[q.n]!==q.key);
+ $('score').textContent=right.length+' / '+done.length+'問 正解'+(done.length?'（'+Math.round(right.length/done.length*100)+'%）':'');
+ $('breakdown').textContent='全'+set.length+'問中、回答済み'+done.length+'問・未回答'+(set.length-done.length)+'問・間違い'+mistakes.length+'問';
+ $('retryWrong').disabled=mistakes.length===0;
  const box=$('review');box.replaceChildren();
- questions.forEach(q=>{const d=document.createElement('div');d.className='review';const h=document.createElement('div');h.className=answers[q.n]===q.key?'good':'bad';h.textContent='問'+q.n+'｜'+(answers[q.n]===q.key?'正解':'不正解・未回答')+'｜回答 '+(answers[q.n]??'なし')+' / 参考解答 '+q.key;const p=document.createElement('div');p.textContent=q.stem.split('\n')[0];const e=document.createElement('div');e.className='muted';e.textContent=q.explanation||'参考解答は非公式です。原本・研修資料と照合してください。';const b=document.createElement('button');b.type='button';b.className='btn secondary';b.style.marginTop='8px';b.textContent='この問題を確認';b.onclick=()=>{index=order.indexOf(q.n);$('result').hidden=true;$('quiz').hidden=false;save();render();scrollTo(0,0)};d.append(h,p,e,b);box.append(d)});
- $('quiz').hidden=true;$('result').hidden=false;scrollTo(0,0);
+ set.forEach(q=>{
+  const d=document.createElement('div');d.className='review';
+  const h=document.createElement('div');h.className=answers[q.n]===q.key?'good':answers[q.n]!=null?'bad':'muted';
+  h.textContent='問'+q.n+'｜'+(answers[q.n]==null?'未回答':answers[q.n]===q.key?'正解':'不正解')+'｜あなたの回答 '+(answers[q.n]??'なし')+' / 参考解答 '+q.key;
+  const p=document.createElement('div');p.textContent=q.stem.split('\n')[0];
+  const e=document.createElement('div');e.className='muted';e.textContent=q.explanation||'参考解答は非公式です。原本・研修資料と照合してください。';
+  const b=document.createElement('button');b.type='button';b.className='btn secondary';b.style.marginTop='8px';b.textContent='この問題を見る';
+  b.onclick=()=>{index=order.indexOf(q.n);$('result').hidden=true;$('quiz').hidden=false;save();render();scrollTop();};
+  d.append(h,p,e,b);box.append(d);
+ });
+ $('quiz').hidden=true;$('result').hidden=false;scrollTop();
 }
-$('finish').onclick=()=>{const remain=50-Object.keys(answers).length;if(remain&&!confirm(remain+'問が未回答です。このまま採点しますか？'))return;result()};
-$('resume').onclick=()=>{$('result').hidden=true;$('quiz').hidden=false;render();scrollTo(0,0)};
-$('retry').onclick=()=>{if(!confirm('すべての回答を消して最初から解き直しますか？'))return;answers={};index=0;save();$('result').hidden=true;$('quiz').hidden=false;render();scrollTo(0,0)};
+$('prev').onclick=()=>{index=Math.max(0,index-1);save();render();scrollTop();};
+$('next').onclick=()=>{if(index===order.length-1){result();return;}index++;save();render();scrollTop();};
+$('finish').onclick=result;
+$('mode').onchange=()=>{
+ if($('mode').value==='random'){
+  for(let i=order.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[order[i],order[j]]=[order[j],order[i]];}
+ }else order.sort((a,b)=>a-b);
+ index=0;save();render();scrollTop();
+};
+$('resume').onclick=()=>{$('result').hidden=true;$('quiz').hidden=false;render();scrollTop();};
+$('retryWrong').onclick=()=>{
+ const wrong=order.filter(n=>answers[n]!=null&&answers[n]!==questions.find(q=>q.n===n).key);
+ if(!wrong.length)return;
+ wrong.forEach(n=>delete answers[n]);
+ order=wrong;index=0;save();
+ $('result').hidden=true;$('quiz').hidden=false;render();scrollTop();
+};
+$('retry').onclick=()=>{
+ if(!confirm('回答記録を消して全50問を最初から解き直しますか？'))return;
+ answers={};order=[...allNumbers];index=0;$('mode').value='ordered';save();
+ $('result').hidden=true;$('quiz').hidden=false;render();scrollTop();
+};
 render();
 })();
+
 </script></body></html>
