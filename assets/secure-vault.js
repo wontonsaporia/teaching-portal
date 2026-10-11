@@ -102,6 +102,7 @@ async function start(){
  const warning=document.createElement('p');warning.className='vault-warning';warning.setAttribute('role','alert');
  const note=document.createElement('p');note.className='vault-description';
  const switcher=document.createElement('button');switcher.type='button';switcher.className='vault-switch';switcher.textContent='別のプロフィールに切り替える';
+ const newProfile=document.createElement('button');newProfile.type='button';newProfile.className='vault-switch';newProfile.textContent='＋ 新しいプロフィールを作成';newProfile.onclick=()=>profiles.create();
  const existing=localStorage.getItem(dbKey);
  const legacy=legacyKeys();
  const setup=!existing;
@@ -115,7 +116,7 @@ async function start(){
   note.textContent='パスワードは端末やサーバーへ送信されません。忘れた場合、暗号化済みのデータは復旧できません。';
  }
  form.append(passlabel,pass,confirmLabel,second,action,warning);
- panel.append(heading,name,intro,form,note,switcher);root.append(panel);
+ panel.append(heading,name,intro,form,note,switcher,newProfile);root.append(panel);
  const attach=()=>{document.body.append(root);pass.focus()};
  if(document.body)attach();else await new Promise(ok=>document.addEventListener('DOMContentLoaded',()=>{attach();ok()},{once:true}));
  const profileChoose=()=>{
