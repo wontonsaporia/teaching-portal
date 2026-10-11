@@ -3,11 +3,8 @@
 'use strict';
 const profiles=window.TeachingProfiles;
 if(!profiles)return;
-const baseKeys=[
- 'care-2018-drill-v2',
- 'care-2018-exam-v2',
- 'care-quiz-history-v1'
-];
+const unitIds=['human','healthcare','safety','infection','observation','suction-general','suction-practice','feeding-general','feeding-practice'];
+const baseKeys=['care-2018-drill-v2','care-2018-exam-v2','care-quiz-history-v1',...unitIds.map(id=>'care-2018-drill-v2--'+id)];
 const storageKey=k=>profiles.scopedKey(k,profiles.activeId());
 const maxBytes=2_000_000;
 const selected=()=>profiles.list().find(p=>p.id===profiles.activeId());
