@@ -61,3 +61,28 @@
 .library-hero a{font-size:12px;font-weight:700}
 .library-hero + .home-library{margin-top:0}
 @media(max-width:600px){.home-library-entry{align-items:flex-start;flex-direction:column;padding:22px}.library-hero{padding:23px}}
+
+/* HOME hero consolidation: one information-rich dashboard, no duplicate overview. */
+.home-hero{padding:clamp(18px,2.5vw,27px);min-height:0}
+.home-hero-dashboard{display:grid;grid-template-columns:minmax(190px,.84fr) minmax(225px,1.08fr) minmax(225px,.95fr);gap:14px;align-items:stretch;margin-top:17px}
+.home-hero-message{padding:8px 6px 4px 2px;display:flex;flex-direction:column;align-items:flex-start}
+.home-hero-message h1{font-size:clamp(31px,3.4vw,44px);margin:5px 0 13px}
+.home-hero-message .home-lead{font-size:12px;line-height:1.8}
+.home-hero-library-link{font-size:12px;font-weight:750;color:#285d42;text-decoration:none;margin-top:auto;padding-top:17px}
+.home-hero-library-link:hover{text-decoration:underline}
+.home-hero-dashboard .home-resume,.home-hero-dashboard .home-stat-panel{min-width:0;min-height:0;border-color:#d4e2d7;padding:18px 18px 16px;border-radius:10px}
+.home-hero-dashboard .home-resume-body{margin:12px 0 18px}
+.home-hero-dashboard .home-resume h2{font-size:19px;line-height:1.4;margin:6px 0 8px}
+.home-hero-dashboard .home-resume p{font-size:12px;line-height:1.7}
+.home-hero-dashboard .home-primary-link{width:100%;justify-content:space-between;gap:12px;font-size:12px;padding:10px 12px}
+.home-hero-dashboard .home-stat-heading{display:block}
+.home-hero-dashboard .home-stat-heading h2{font-size:15px;margin:5px 0 0}
+.home-hero-dashboard .home-stats{margin-top:16px;gap:12px 8px}
+.home-hero-dashboard .home-stats strong{font-size:25px}
+.home-hero-dashboard .home-stats>div:last-child{padding-top:9px}
+.home-hero-dashboard .home-stats-note{font-size:10px;margin:10px 0 0}
+.home-stat-link{display:inline-block;font-size:11px;font-weight:720;color:#276044;margin-top:12px;text-decoration:none}
+.home-stat-link:hover{text-decoration:underline}
+.home-hero-footer{margin-top:16px;padding-top:12px}
+@media(max-width:960px){.home-hero-dashboard{grid-template-columns:minmax(185px,.8fr) minmax(225px,1fr)}.home-hero-dashboard .home-stat-panel{grid-column:1 / -1}.home-hero-dashboard .home-stats{grid-template-columns:repeat(3,minmax(0,1fr))}.home-hero-dashboard .home-stats>div:last-child{grid-column:auto;border-top:0;padding-top:0}}
+@media(max-width:620px){.home-hero-dashboard{grid-template-columns:1fr;gap:11px}.home-hero-message{padding:0 3px 8px}.home-hero-message h1{font-size:38px;margin:5px 0 7px}.home-hero-library-link{padding-top:9px}.home-hero-dashboard .home-stat-panel{grid-column:auto}.home-hero-dashboard .home-resume,.home-hero-dashboard .home-stat-panel{padding:17px}.home-hero-dashboard .home-stats strong{font-size:22px}}
