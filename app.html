@@ -17,18 +17,24 @@
 <div class="app-shell">
 <header class="app-header">
   <a class="app-identity" id="app-home-logo" href="app.html?page=home.html" aria-label="Teaching Portal：教材一覧に戻る"><span class="app-monogram" aria-hidden="true">TP<span>.</span></span><span class="app-identity-text"><strong>TEACHING PORTAL</strong><small>LEARNING SPACE / V2 PREVIEW</small></span></a>
-  <div class="app-account"><span id="app-mode-label">学習環境を準備中…</span><span id="app-save-state" role="status" aria-live="polite">解錠待ち</span><button id="app-lock" type="button" disabled>ログアウト</button></div>
+  <div class="app-account">
+    <span id="app-save-state" role="status" aria-live="polite">解錠待ち</span>
+    <details class="account-menu" id="account-menu">
+      <summary aria-label="プロフィール・設定を開く"><span class="account-avatar" aria-hidden="true">◯</span><span id="app-mode-label">プロフィール</span><span aria-hidden="true">⌄</span></summary>
+      <div class="account-popover">
+        <p class="account-menu-title">プロフィール・データ管理</p>
+        <section id="app-backup-slot" class="profile-slot" aria-label="プロフィール・バックアップ"></section>
+        <button id="app-lock" type="button" disabled>ログアウト</button>
+      </div>
+    </details>
+  </div>
 </header>
 <nav class="app-nav" aria-label="学習ナビゲーション">
- <button type="button" data-page="home.html">教材一覧</button>
- <button type="button" data-page="materials/care/suction-2018-quiz.html">練習ドリル</button>
- <button type="button" data-page="materials/care/suction-2018-test.html">模擬テスト</button>
- <button type="button" data-page="materials/care/dashboard.html">学習分析</button>
+ <button type="button" data-page="home.html" aria-label="ホーム">⌂ <span>ホーム</span></button>
+ <button type="button" data-page="library.html" aria-label="教材一覧">▦ <span>教材</span></button>
+ <button type="button" data-page="materials/care/dashboard.html" aria-label="学習分析">▥ <span>学習分析</span></button>
 </nav>
-<details class="app-settings" id="app-settings">
- <summary>データ管理・バックアップ</summary>
- <section id="app-backup-slot" class="profile-slot" aria-label="暗号化バックアップ"><p>このプロフィールのバックアップは、別のパスワードで暗号化されます。</p></section>
-</details>
+
 <main class="app-main">
  <p id="app-status" class="app-status" role="status" aria-live="polite">学習環境を準備しています。プロフィール利用時はパスワードで解錠してください。</p>
  <iframe id="learning-view" title="Teaching Portal 教材・学習画面" hidden loading="eager"></iframe>
