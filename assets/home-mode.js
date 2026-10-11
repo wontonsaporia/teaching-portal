@@ -87,21 +87,18 @@ function addFocus(tag,title,description,path,actionText){
  card.append(small,heading,desc,a);$('home-focus-list').append(card);
 }
 function render(){
- const modeLabel=$('home-mode'),intro=$('home-intro'),privacy=$('home-privacy-note'),clear=$('home-clear-guest');
+ const modeLabel=$('home-mode'),privacy=$('home-privacy-note'),clear=$('home-clear-guest');
  if(mode==='guest'){
   modeLabel.textContent='GUEST / 一時利用';
-  intro.textContent='このタブ内の続きを確認しながら、必要な教材を探せます。';
   privacy.textContent='ゲストの記録はこのタブ内で一時保存。タブ復元時には残る場合があります。';
   clear.hidden=false;
  }else if(local&&profile){
   const name=profile.list().find(p=>p.id===profileId)?.name||'学習者';
   modeLabel.textContent=name+' / LOCAL PROFILE';
-  intro.textContent='学習の続き、記録の振り返り、教材探しをここから。';
   privacy.textContent='学習履歴はこの端末内で暗号化して保存しています。';
   clear.hidden=true;
  }else{
   modeLabel.textContent='PROFILE / 未解錠';
-  intro.textContent='教材は公開されています。学習記録を見るにはSTARTからプロフィールを開いてください。';
   privacy.textContent='学習記録は表示していません。';
   clear.hidden=true;
  }
@@ -115,16 +112,14 @@ function render(){
  const choices=resumeOptions(),selected=choices[0];
  const anchor=$('resume-action');
  if(selected){
-  $('resume-meta').textContent=`${selected.answered} / ${selected.total} 問 回答済み`;
-  $('resume-title').textContent=selected.kind+'を再開';
-  $('resume-description').textContent='保存された回答から続けられます。別の教材は「教材一覧」から選択できます。';
-  anchor.href=link(selected.target);anchor.firstChild.textContent='続きから学習する ';
+  $('resume-title').textContent='学習を再開';
+  $('resume-description').textContent=selected.kind+' · '+selected.answered+' / '+selected.total+'問 回答済み';
+  anchor.href=link(selected.target);anchor.querySelector('.resume-action-text').textContent='続きから学習';
  }else{
-  $('resume-meta').textContent=local?'未完了の学習セッションはありません':'解錠後に続きの教材を表示';
   $('resume-title').textContent=local?'新しい学習を始める':'プロフィールから始める';
-  $('resume-description').textContent=local?'教材はいつでも自由に選べます。練習ドリルから始めてみましょう。':'START画面から学習プロフィールを開くと記録が表示されます。';
+  $('resume-description').textContent=local?'途中回答のあるドリルはありません':'プロフィールの解錠が必要です';
   anchor.href=local?'materials/care/suction-2018-quiz.html':'index.html';
-  anchor.firstChild.textContent=local?'練習ドリルを開く ':'STARTを開く ';
+  anchor.querySelector('.resume-action-text').textContent=local?'ドリルを開く':'STARTへ';
  }
  $('home-focus-list').replaceChildren();
  if(!local){addFocus('学習履歴','プロフィールを開く','HOMEでは解錠された学習記録だけを扱います。','index.html','STARTへ →');}
