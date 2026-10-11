@@ -18,13 +18,30 @@
 <body class="learning-home">
 <main class="wrap">
   <section class="home-hero" aria-labelledby="home-title">
-    <div class="home-topline"><span class="home-kicker">LEARNING DESK / 01</span><span id="home-mode" class="home-mode">利用モードを確認中…</span></div>
+    <div class="home-topline"><span class="home-kicker">LEARNING DESK</span><span id="home-mode" class="home-mode">利用モードを確認中…</span></div>
     <div class="home-hero-main">
-      <div>
+      <div class="home-hero-message">
         <h1 id="home-title">学びの、<br><span>続きから。</span></h1>
         <p id="home-intro" class="home-lead">教材を開く、続きを解く、記録を振り返る。ここから始めましょう。</p>
       </div>
-      <div class="home-hero-mark" aria-hidden="true"><span>TP</span><span class="mark-dot">.</span></div>
+      <aside class="home-hero-shortcuts" aria-label="学習へのショートカット">
+        <span class="home-card-label">QUICK ACCESS</span>
+        <a class="home-shortcut" href="library.html">
+          <span class="home-shortcut-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 7v14M3 18V5a2 2 0 0 1 2-2h3a4 4 0 0 1 4 4 4 4 0 0 1 4-4h3a2 2 0 0 1 2 2v13a1 1 0 0 1-1 1h-4a4 4 0 0 0-4 2 4 4 0 0 0-4-2H4a1 1 0 0 1-1-1Z"/></svg>
+          </span>
+          <span class="home-shortcut-copy"><strong>教材を探す</strong><small>教科・単元から選択</small></span>
+          <span class="home-shortcut-arrow" aria-hidden="true">↗</span>
+        </a>
+        <a class="home-shortcut" href="materials/care/dashboard.html">
+          <span class="home-shortcut-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19V5M4 19h16M8 15l4-5 3 2 5-6"/></svg>
+          </span>
+          <span class="home-shortcut-copy"><strong>学習記録を見る</strong><small>回答履歴と学習傾向</small></span>
+          <span class="home-shortcut-arrow" aria-hidden="true">↗</span>
+        </a>
+        <p id="home-shortcut-state" class="home-shortcut-state">学習状況を確認しています。</p>
+      </aside>
     </div>
     <div class="home-hero-footer">
       <span id="home-privacy-note">学習情報は端末内に保存されます。</span>
