@@ -12,6 +12,8 @@ const ALLOWED=['care-2018-drill-v2','care-2018-exam-v2','care-quiz-history-v1',
  .map(id=>'care-2018-drill-v2--'+id)];
 function store(){if(!root.sessionStorage)throw Error('Session storage unavailable');return root.sessionStorage}
 function enter(){store().setItem(MODE_KEY,'guest')}
+function enterProfile(){store().setItem(MODE_KEY,'profile')}
+function mode(){try{return store().getItem(MODE_KEY)||'guest'}catch(e){return 'guest'}}
 function active(){try{return store().getItem(MODE_KEY)==='guest'}catch(e){return false}}
 function storageKey(base){if(!ALLOWED.includes(base))throw Error('Unknown guest data key');return PREFIX+'data:'+base}
 const local={
@@ -30,5 +32,5 @@ function clear(){
  storage.removeItem(MODE_KEY);
 }
 function exit(){store().removeItem(MODE_KEY)}
-root.TeachingGuest={enter,active,storageKey,local,snapshot,clear,exit,allowedKeys:[...ALLOWED]};
+root.TeachingGuest={enter,enterProfile,mode,active,storageKey,local,snapshot,clear,exit,allowedKeys:[...ALLOWED]};
 })(window);
