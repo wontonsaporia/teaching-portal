@@ -67,6 +67,11 @@ frame.addEventListener('load',()=>{
  }catch(e){status.textContent='教材画面の連携に失敗しました。開発者ツールを確認してください。'}
 });
 document.querySelectorAll('.app-nav [data-page]').forEach(b=>b.addEventListener('click',()=>go(b.dataset.page)));
+$('app-home-logo').addEventListener('click',event=>{
+ if(event.defaultPrevented||event.button!==0||event.ctrlKey||event.metaKey||event.shiftKey||event.altKey)return;
+ event.preventDefault();
+ go('home.html');
+});
 async function saveChild(){
  try{
   const child=frame.contentWindow;
@@ -97,6 +102,7 @@ window.addEventListener('popstate',()=>{const requested=new URLSearchParams(loca
   await vault.ready;
   if(!guest.mode)throw Error('Session mode unavailable');
   const isGuest=window.TeachingMode.guest;
+  $('app-lock').textContent=isGuest?'ゲスト利用を終了':'ログアウト';
   $('app-mode-label').textContent=isGuest?'ゲスト利用中（タブ内一時保存）':'学習プロフィール：'+(window.TeachingProfiles.list().find(p=>p.id===window.TeachingProfiles.activeId())?.name||'ローカル');
   $('app-lock').disabled=false;
   if(isGuest){$('app-settings').hidden=true}else $('app-settings').hidden=false;
