@@ -1,0 +1,17 @@
+name: v2 static smoke
+on:
+  pull_request:
+  push:
+    branches:
+      - feature/v2-guest-session-design
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node tests/v2-smoke.mjs
