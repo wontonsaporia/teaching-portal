@@ -8,7 +8,7 @@ self.addEventListener('fetch',event=>{
  const request=event.request;
  if(request.method!=='GET'||new URL(request.url).origin!==self.location.origin)return;
  if(request.mode==='navigate'){
-  event.respondWith(fetch(request).catch(()=>caches.match(request).then(hit=>hit||caches.match(ROOT+'index.html'))));
+  event.respondWith(fetch(request).catch(()=>caches.match(request).then(hit=>hit||Response.error())));
   return;
  }
  // Only explicitly defined static assets are cached. Do not cache encrypted vaults or backups.
