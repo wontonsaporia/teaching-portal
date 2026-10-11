@@ -1,7 +1,7 @@
 /* Encrypted backups, with explicit opt-in conversion of legacy unencrypted exports. */
 (async()=>{
 'use strict';
-if(window.TeachingMode?.guest)return;
+if(window.TeachingMode?.guest||window.TeachingMode?.insideShell)return;
 const vault=window.TeachingVault,profiles=window.TeachingProfiles;
 await vault.ready;
 const unitIds=['human','healthcare','safety','infection','observation','suction-general','suction-practice','feeding-general','feeding-practice'];
