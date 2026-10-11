@@ -7,7 +7,7 @@ const $=id=>document.getElementById(id);
 const frame=$('learning-view'),status=$('app-status'),guest=window.TeachingGuest,vault=window.TeachingVault;
 const paths=new Set(['home.html','materials/care/suction-2018-quiz.html','materials/care/suction-2018-test.html','materials/care/dashboard.html','materials/care/regulations.html','materials/care/disclaimer.html','materials/math/word-chunks.html','materials/math/integer-equations.html']);
 const base=new URL('.',window.location.href);
-let locked=false,transitioning=false,saveWatch=null;
+let locked=false,transitioning=false;
 window.TeachingAppShell={version:1};
 function relativePath(raw){
  try{
@@ -26,19 +26,19 @@ function go(path,history=true){
  const resolved=relativePath(path);
  if(!resolved){status.textContent='このリンクは学習スペース内で開けません。';return}
  const bare=resolved.split(/[?#]/)[0];
- if(history)window.history.pushState({page:resolved},'',new URL('app.html?page='+encodeURIComponent(resolved),base));
  transitioning=true;
  const navigate=async()=>{
   try{
    await saveChild();
    await vault.flush();
+   if(history)window.history.pushState({page:resolved},'',new URL('app.html?page='+encodeURIComponent(resolved),base));
    frame.src=new URL(resolved,base).href;
+   mark(bare);
+   status.textContent='';
   }catch(e){status.textContent='保存に失敗しました。画面を移動せず、保存状態を確認してください。';mark(currentPath())}
   finally{transitioning=false}
  };
  void navigate();
- mark(bare);
- status.textContent='';
 }
 frame.addEventListener('load',()=>{
  try{
@@ -79,7 +79,7 @@ function updateSaveStatus(){
  node.textContent=window.TeachingMode.guest?'タブ内に一時保存':'暗号化して保存';
 }
 async function leave(){
- if(locked)return;
+ if(locked||transitioning)return;
  locked=true;$('app-lock').disabled=true;status.textContent='学習記録を保存しています…';
  try{
   await saveChild();
