@@ -1,10 +1,11 @@
 /* Encrypted backups, with explicit opt-in conversion of legacy unencrypted exports. */
 (async()=>{
 'use strict';
+if(window.TeachingMode?.guest||window.TeachingMode?.insideShell)return;
 const vault=window.TeachingVault,profiles=window.TeachingProfiles;
 await vault.ready;
 const unitIds=['human','healthcare','safety','infection','observation','suction-general','suction-practice','feeding-general','feeding-practice'];
-const bases=['care-2018-drill-v2','care-2018-exam-v2','care-quiz-history-v1',...unitIds.map(id=>'care-2018-drill-v2--'+id)];
+const bases=['care-national-medical-2024-2026-v1','care-2018-drill-v2','care-2018-exam-v2','care-quiz-history-v1',...unitIds.map(id=>'care-2018-drill-v2--'+id)];
 const scoped=base=>profiles.scopedKey(base,profiles.activeId());
 const activeName=()=>profiles.list().find(x=>x.id===profiles.activeId())?.name||'学習者';
 const maxBytes=3_000_000;
@@ -23,10 +24,18 @@ function validateSession(s){
 function validateHistory(v){
  return Array.isArray(v)&&v.length<=10000&&v.every(x=>x&&typeof x==='object'&&typeof x.questionId==='string'&&x.questionId.length<100&&typeof x.examId==='string'&&x.examId.length<100&&typeof x.unitId==='string'&&x.unitId.length<100&&Number.isInteger(x.number)&&x.number>=1&&x.number<=50&&Number.isInteger(x.choice)&&x.choice>=1&&x.choice<=4&&typeof x.correct==='boolean'&&typeof x.at==='string'&&x.at.length<80);
 }
+function validateNationalMedical(v){
+ if(!v||typeof v!=='object'||Array.isArray(v)||v.version!==1)return false;
+ if(!v.answers||typeof v.answers!=='object'||Array.isArray(v.answers))return false;
+ if(Object.keys(v.answers).length>15)return false;
+ if(Object.entries(v.answers).some(([id,answer])=>!(/^(36|37)-(59|60|61|62|63)$|^38-(101|102|103|104|105)$/.test(id))||!Number.isInteger(answer)||answer<1||answer>5))return false;
+ if(v.savedAt!==undefined&&(!Number.isFinite(v.savedAt)||v.savedAt<0))return false;
+ return true;
+}
 function checkSections(obj){
  if(!obj||typeof obj!=='object'||Array.isArray(obj))throw Error('Invalid payload');
  const entries=Object.entries(obj);
- if(!entries.length||entries.some(([k,v])=>!bases.includes(k)||(k==='care-quiz-history-v1'?!validateHistory(v):!validateSession(v))))throw Error('Invalid learning records');
+ if(!entries.length||entries.some(([k,v])=>!bases.includes(k)||(k==='care-quiz-history-v1'?!validateHistory(v):k==='care-national-medical-2024-2026-v1'?!validateNationalMedical(v):!validateSession(v))))throw Error('Invalid learning records');
  return entries;
 }
 function pack(){

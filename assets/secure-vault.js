@@ -1,6 +1,7 @@
 /* Teaching Portal encrypted local vault v1 (Web Crypto, no server). */
 (()=>{
 'use strict';
+if(window.TeachingMode?.guest||window.TeachingMode?.insideShell)return;
 const profiles=window.TeachingProfiles;
 if(!profiles)throw Error('Profile system must load first');
 const id=profiles.activeId();

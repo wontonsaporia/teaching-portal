@@ -43,9 +43,8 @@ function rename(){
 async function change(id){
  if(!list().some(p=>p.id===id)||id===activeId())return;
  try{
-  if(window.TeachingVault?.isUnlocked()){
-   await window.TeachingVault.flush();
-  }
+  if(window.TeachingAppShell?.saveForProfileAction)await window.TeachingAppShell.saveForProfileAction();
+  else if(window.TeachingVault?.isUnlocked())await window.TeachingVault.flush();
   localStorage.setItem(activeKey,id);window.location.reload();
  }catch(e){alert('暗号化データの保存が完了していません。保存状態を確認してから切り替えてください。')}
 }
@@ -55,7 +54,8 @@ async function remove(){
  if(!window.TeachingVault?.isUnlocked()){alert('削除するプロフィールを先に解錠してください。');return}
  if(!confirm('「'+name+'」と暗号化された学習履歴を、この端末から削除しますか？元に戻せません。先にバックアップしてください。'))return;
  try{
-  await window.TeachingVault.flush();
+  if(window.TeachingAppShell?.saveForProfileAction)await window.TeachingAppShell.saveForProfileAction(true);
+  else await window.TeachingVault.flush();
   const toRemove=[];
   for(let i=0;i<localStorage.length;i++){
    const k=localStorage.key(i);
@@ -68,6 +68,7 @@ async function remove(){
  }catch(e){alert('削除できませんでした。')}
 }
 function mount(){
+ if(window.TeachingMode?.guest||window.TeachingMode?.insideShell||document.body?.dataset.profileUi==='hidden')return;
  const target=document.querySelector('.side')||document.querySelector('.profile-slot')||document.querySelector('.hero')||document.querySelector('main');
  if(!target)return;
  const box=document.createElement('section');box.className='profile-manager';box.setAttribute('aria-label','学習プロフィール');

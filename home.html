@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#203d37">
+<title>HOME | Teaching Portal v2</title>
+<link rel="stylesheet" href="assets/style.css">
+<link rel="stylesheet" href="assets/home.css">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/svg+xml" href="assets/app-icon.svg">
+
+
+<script src="assets/guest-session.js" defer></script>
+<script src="materials/care/curriculum.js" defer></script>
+<script src="assets/home-mode.js" defer></script>
+</head>
+<body class="learning-home">
+<main class="wrap">
+  <section class="home-hero" aria-labelledby="home-title">
+    <div class="home-topline">
+      <span class="home-kicker">LEARNING DESK / HOME</span>
+      <span id="home-mode" class="home-mode">利用モードを確認中…</span>
+    </div>
+    <div class="home-hero-dashboard">
+      <div class="home-hero-message">
+        <h1 id="home-title">学びの、<br><span>続きから。</span></h1>
+        <a class="home-hero-library-link" href="library.html" aria-label="教材一覧を開く">教材一覧を見る <span aria-hidden="true">↗</span></a>
+      </div>
+      <article class="home-resume" aria-labelledby="resume-title">
+        <span class="home-card-label">CONTINUE</span>
+        <div class="home-resume-body">
+          <h2 id="resume-title">学習を再開</h2>
+          <p id="resume-description">途中回答のあるドリル</p>
+        </div>
+        <a id="resume-action" class="home-primary-link" href="materials/care/suction-2018-quiz.html"><span class="resume-action-text">続きから学習</span> <span aria-hidden="true">→</span></a>
+      </article>
+      <aside class="home-stat-panel" aria-labelledby="overview-title">
+        <div class="home-stat-heading">
+          <span class="home-card-label">LEARNING SNAPSHOT</span>
+          <h2 id="overview-title">学習の現在地</h2>
+        </div>
+        <div class="home-stats">
+          <div><strong id="home-attempts">—</strong><span>回答済み問題</span></div>
+          <div><strong id="home-covered">—</strong><span>利用中のコース</span></div>
+          <div><strong id="home-recent">—</strong><span>登録問題数</span></div>
+        </div>
+        <p id="home-stats-note" class="home-stats-note">現在の学習データから集計します。</p>
+        <a class="home-stat-link" href="progress.html">コース別の学習記録を見る <span aria-hidden="true">↗</span></a>
+      </aside>
+    </div>
+    <div class="home-hero-footer">
+      <span id="home-privacy-note">学習情報は端末内に保存されます。</span>
+      <button type="button" id="home-clear-guest" class="home-text-button" hidden>ゲスト履歴を消去</button>
+    </div>
+  </section>
+
+  <section class="home-focus" aria-labelledby="focus-title">
+    <div class="home-section-heading">
+      <div><span class="home-kicker">REVIEW / 03</span><h2 id="focus-title">復習の手がかり</h2></div>
+      <p>喀痰吸引等研修・9単元の参考分析</p>
+    </div>
+    <div id="home-focus-list" class="home-focus-grid" aria-live="polite">
+      <p class="home-empty-note">学習記録を確認しています。</p>
+    </div>
+    <p class="home-quality-note">※ 正誤判定は公式解答表による監修が完了していない暫定的な参考値です。学習理解度や正式な試験成績を示すものではありません。</p>
+  </section>
+
+</main>
+<footer class="wrap home-footer">TEACHING PORTAL / V2 PREVIEW · メールアドレス・外部ログインは不要です。</footer>
+<script>if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}))}</script>
+</body>
+</html>
