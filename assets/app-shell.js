@@ -5,7 +5,7 @@
 'use strict';
 const $=id=>document.getElementById(id);
 const frame=$('learning-view'),status=$('app-status'),guest=window.TeachingGuest,vault=window.TeachingVault;
-const paths=new Set(['home.html','library.html','progress.html','materials/care/suction-2018-quiz.html','materials/care/suction-2018-test.html','materials/care/national-medical-quiz.html','materials/care/dashboard.html','materials/care/regulations.html','materials/care/disclaimer.html','materials/math/word-chunks.html','materials/math/integer-equations.html']);
+const paths=new Set(['home.html','library.html','progress.html','materials/care/suction-2018-quiz.html','materials/care/suction-2018-test.html','materials/care/national-medical-quiz.html','materials/care/dashboard.html','materials/care/regulations.html','materials/care/disclaimer.html','materials/math/word-chunks.html','materials/math/integer-equations.html','materials/math/equation-reading.html']);
 const base=new URL('.',window.location.href);
 let locked=false,transitioning=false;
 window.TeachingAppShell={version:1};

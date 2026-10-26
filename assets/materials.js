@@ -40,6 +40,7 @@ window.TEACHING_MATERIALS = [
     tags: ['文章題', '整数', '偶数', '方程式', '読解', '色分け'],
     path: 'materials/math/word-chunks.html', action: '教材を開く', external: false
   },
+  {id:'math-equation-reading',courseId:'math-junior-high',collectionId:'math-equation-reading-v01',subject:'math',subjectLabel:'数学',grade:'中1〜中2',format:'自由記述・自己評価',title:'方程式の利用｜文章題読解特訓（40問）',description:'比較・括弧・整数・割合など8単元。解答例と読解ポイントを見ながら反復練習。回答記録は画面を更新すると消去されます。',tags:['方程式の利用','文章題','読解','数量関係','立式','40問'],path:'materials/math/equation-reading.html',action:'問題集を開く',external:false},
   {
     id: 'math-integer-equations',courseId:'math-junior-high',subject: 'math', subjectLabel: '数学', grade: '中1〜中2', format: 'HTML',
     title: '整数と方程式の問題集',
