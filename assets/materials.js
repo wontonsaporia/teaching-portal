@@ -41,7 +41,7 @@ window.TEACHING_MATERIALS = [
     path: 'materials/math/word-chunks.html', action: '教材を開く', external: false
   },
   {id:'math-equation-reading',courseId:'math-junior-high',collectionId:'math-equation-reading-v01',subject:'math',subjectLabel:'数学',grade:'中1〜中2',format:'自由記述・自己評価',title:'方程式の利用｜文章題読解特訓（40問）',description:'比較・括弧・整数・割合など8単元。解答例と読解ポイントを見ながら反復練習。回答記録は画面を更新すると消去されます。',tags:['方程式の利用','文章題','読解','数量関係','立式','40問'],path:'materials/math/equation-reading.html',action:'問題集を開く',external:false},
-  {id:'math-proportion-reading',courseId:'math-junior-high',collectionId:'math-proportion-reading-v01',subject:'math',subjectLabel:'数学',grade:'中1',format:'自由記述・自己評価',title:'比例・反比例の利用｜読解特訓（30問）',description:'変数・比例定数・反比例・表・変域・モデルの仮定を読む6単元。解答例との比較と要復習の絞り込みに対応。記録はページ更新で消えます。',tags:['関数','比例','反比例','利用','文章題','30問'],path:'materials/math/proportion-reading.html',action:'問題集を開く',external:false},
+  {id:'math-proportion-reading',courseId:'math-junior-high',collectionId:'math-proportion-reading-v01',subject:'math',subjectLabel:'数学',grade:'中1',format:'自由記述・自己評価',title:'比例・反比例の利用｜読解特訓（40問）',description:'変数・反比例・歯車・動点P・変域・モデルの仮定を読む8単元。解答例との比較と要復習の絞り込みに対応。記録はページ更新で消えます。',tags:['関数','比例','反比例','利用','文章題','歯車','動点P','変域','40問'],path:'materials/math/proportion-reading.html',action:'問題集を開く',external:false},
   {
     id: 'math-integer-equations',courseId:'math-junior-high',subject: 'math', subjectLabel: '数学', grade: '中1〜中2', format: 'HTML',
     title: '整数と方程式の問題集',
