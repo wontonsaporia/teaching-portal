@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#203d37"><title>比例・反比例の利用｜読解特訓</title>
+<link rel="stylesheet" href="equation-reading.css">
+<script src="proportion-reading-bank.js" defer></script><script src="proportion-reading.js" defer></script></head>
+<body>
+<header class="top"><a href="../../library.html">← 教材一覧</a><span>TEACHING PORTAL / MATH</span><button type="button" id="print">印刷</button></header>
+<main class="wrap">
+<section class="intro"><span class="eyebrow">MATHEMATICAL READING / 中学数学</span><h1>比例・反比例の利用を、<br>「読める」ようになる。</h1><p>一定の量と変数の関係を読み、式・表・変域へ翻訳する30問。解答例と比較し、どこを読み違えたのか確かめよう。</p><p class="notice">これは自由記述の自己評価型教材です。解答の自動採点はありません。入力と進捗はこの画面を開いている間だけ保持され、再読み込みでは消えます。</p></section>
+<section class="controls" aria-label="問題を選ぶ"><div><label for="unit">単元</label><select id="unit"><option value="all">すべての単元</option></select></div><div><label for="level">難易度</label><select id="level"><option value="all">すべて</option><option value="1">Lv 1</option><option value="2">Lv 2</option><option value="3">Lv 3</option><option value="4">Lv 4</option></select></div><div><label for="status-filter">復習状況</label><select id="status-filter"><option value="all">すべて</option><option value="unseen">未評価</option><option value="retry">要復習</option><option value="done">理解できた</option></select></div></section>
+<section class="summary" aria-live="polite"><span id="count">30問</span><span id="stats">理解 0 / 要復習 0</span></section>
+<nav id="numbers" class="numbers" aria-label="問題番号"></nav>
+<section id="problem" class="problem" aria-labelledby="question-title">
+<div class="meta"><span id="unit-label"></span><span id="level-label"></span><span id="position"></span></div>
+<h2 id="question-title"></h2><p id="question-body" class="stem"></p><p id="question-task" class="task"></p>
+<label for="response">自分の考え・立式・解答</label><textarea id="response" rows="5" placeholder="何が一定？ xとyは何を表す？ 比・積・定義域も説明しよう。"></textarea>
+<div class="actions"><button id="reveal" type="button" class="primary" aria-expanded="false">解答例と読解ポイントを見る</button></div>
+<section id="solution" class="solution" hidden><h3>解答例</h3><p id="answer"></p><h3>読むポイント</h3><p id="focus"></p><details><summary>間違えやすい読み方</summary><p id="pitfall"></p></details><fieldset><legend>解答例と比較して自己評価</legend><button type="button" id="mark-done">理解できた</button><button type="button" id="mark-retry">要復習</button><button type="button" id="mark-clear">評価を取り消す</button></fieldset></section>
+<div class="bottom-nav"><button type="button" id="prev">← 前の問題</button><button type="button" id="next">次の問題 →</button></div></section>
+<p id="empty" class="empty" hidden>条件に一致する問題がありません。絞り込みを変更してください。</p>
+<footer>自由記述・自己評価方式 / 正答率は算出しません。<a href="../../library.html">教材一覧へ戻る</a></footer></main>
+</body></html>
